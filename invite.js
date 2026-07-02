@@ -141,12 +141,18 @@
 
     const title = $("[data-lightbox-title]", modal);
     const caption = $("[data-lightbox-caption]", modal);
+    const image = $("[data-lightbox-image]", modal);
     const close = $(".lightbox-close", modal);
 
     $$("[data-lightbox]").forEach((trigger) => {
       trigger.addEventListener("click", () => {
         title.textContent = trigger.getAttribute("data-lightbox") || "照片";
         caption.textContent = trigger.getAttribute("data-caption") || "";
+        const src = trigger.getAttribute("data-lightbox-src") || "";
+        if (image) {
+          image.src = src;
+          image.alt = trigger.getAttribute("data-lightbox") || "照片";
+        }
         modal.hidden = false;
       });
     });
