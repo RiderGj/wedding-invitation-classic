@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>见证者模式 · Wedding Experience</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="invite-page witness-page" data-mode="witness">
+    <div class="top-controls" aria-label="页面控制">
+      <button class="icon-button menu-button ripple-target" type="button" aria-label="打开菜单" aria-expanded="false">☰</button>
+      <button class="icon-button sound-button ripple-target" type="button" aria-label="开启音乐" aria-pressed="false">♪</button>
+    </div>
+
+    <nav class="nav-drawer" aria-label="见证者模式导航">
+      <a href="#secret-letter">神秘来信</a>
+      <a href="#identity-check">确认身份</a>
+      <a href="#personal-letter">专属来信</a>
+      <a href="#memory-gallery">记忆展厅</a>
+      <a href="#mission">见证任务</a>
+      <a href="#witness-ticket">Witness Ticket</a>
+      <a href="#witness-rsvp">确认赴约</a>
+    </nav>
+
+    <main class="screen-stack">
+      <section class="scene witness-cover" id="secret-letter">
+        <div class="scene-inner envelope-layout">
+          <p class="eyebrow">Witness Mode</p>
+          <div class="envelope-card">
+            <div class="envelope-flap"></div>
+            <div class="wax-seal">0822</div>
+            <p>To:</p>
+            <h1 data-guest-name>亲爱的朋友</h1>
+            <span>Personal · Please Open By Yourself</span>
+          </div>
+          <p class="small-note">这封信，仅限本人亲启。</p>
+          <button class="primary-button ripple-target" type="button" data-next="#identity-check">我来开启</button>
+        </div>
+      </section>
+
+      <section class="scene identity-scene" id="identity-check">
+        <div class="scene-inner identity-layout">
+          <p class="eyebrow">Identity Check</p>
+          <form class="identity-paper" data-identity-form>
+            <h2>请确认你的身份</h2>
+            <label class="field-label">请输入你的名字<input type="text" value="张三" data-name-input name="guestName" autocomplete="name" /></label>
+            <div class="choice-stack" role="radiogroup" aria-label="身份确认">
+              <label data-identity-choice="self"><input type="radio" name="identity" value="self" checked /> <span>我就是本人</span></label>
+              <label data-identity-choice="other"><input type="radio" name="identity" value="other" /> <span>不是本人</span></label>
+            </div>
+            <button class="primary-button ripple-target" type="submit">确认身份</button>
+          </form>
+          <p class="small-note">确认后，信件将为你亲自展开。</p>
+        </div>
+      </section>
+
+      <section class="scene denied-scene" id="identity-denied" hidden>
+        <div class="scene-inner denied-layout">
+          <div class="sealed-envelope">
+            <span>!</span>
+          </div>
+          <h2>这封信，似乎并不愿意被别人打开。</h2>
+          <p>请找到真正的收件人。</p>
+          <button class="primary-button ripple-target" type="button" data-next="#identity-check">我找到本人了</button>
+        </div>
+      </section>
+
+      <section class="scene opening-scene" id="letter-opening">
+        <div class="scene-inner opening-layout">
+          <p class="eyebrow">Letter Opening</p>
+          <div class="open-envelope">
+            <div class="paper-rise">
+              <span>To: <b data-guest-name>张三</b></span>
+              <strong>亲启</strong>
+            </div>
+            <div class="wax-seal cracked">0822</div>
+          </div>
+          <p>信件开启中...</p>
+          <button class="primary-button ripple-target" type="button" data-next="#personal-letter">阅读来信</button>
+        </div>
+      </section>
+
+      <section class="scene letter-scene witness-letter-scene" id="personal-letter">
+        <div class="scene-inner letter-layout">
+          <p class="eyebrow">Personal Letter</p>
+          <article class="paper-letter">
+            <span class="stamp">Witness</span>
+            <h2>亲爱的 <span data-guest-name>张三</span>：</h2>
+            <p>谢谢你一直以来的陪伴与支持。那些一起笑过、聊过、走过的日子，已经悄悄变成我们故事里很重要的一部分。</p>
+            <p>因为在我们的人生旅程里，你曾留下属于你的那一圈涟漪。</p>
+            <p>所以今天，我们想邀请你继续见证下一章节。</p>
+            <p class="signature">新郎 &amp; 新娘 ♡</p>
+          </article>
+          <button class="primary-button ripple-target" type="button" data-next="#memory-gallery">进入记忆展厅</button>
+        </div>
+      </section>
+
+      <section class="scene memory-scene" id="memory-gallery">
+        <div class="scene-inner memory-layout">
+          <header class="scene-heading center-heading">
+            <p>Memory Gallery</p>
+            <h2>属于我们的时光</h2>
+            <span>～</span>
+          </header>
+          <div class="room-strip" aria-label="记忆展厅">
+            <article class="room-card">
+              <span>房间 01</span>
+              <h3>相遇</h3>
+              <button class="photo-frame ripple-target" type="button" data-lightbox="房间 01 · 相遇" data-caption="替换为相遇主题照片。"><small>进入房间 →</small></button>
+            </article>
+            <article class="room-card">
+              <span>房间 02</span>
+              <h3>相知</h3>
+              <button class="photo-frame ripple-target" type="button" data-lightbox="房间 02 · 相知" data-caption="替换为相知主题照片。"><small>进入房间 →</small></button>
+            </article>
+            <article class="room-card">
+              <span>房间 03</span>
+              <h3>相爱</h3>
+              <button class="photo-frame ripple-target" type="button" data-lightbox="房间 03 · 相爱" data-caption="替换为相爱主题照片。"><small>进入房间 →</small></button>
+            </article>
+          </div>
+          <button class="primary-button ripple-target" type="button" data-next="#mission">领取见证任务</button>
+        </div>
+      </section>
+
+      <section class="scene mission-scene" id="mission">
+        <div class="scene-inner mission-layout">
+          <p class="eyebrow">Mission Received</p>
+          <article class="mission-paper">
+            <div class="mission-topline">
+              <h2>Mission Received</h2>
+              <span>Top Secret</span>
+            </div>
+            <dl>
+              <div><dt>编号</dt><dd>No.0822</dd></div>
+              <div><dt>身份</dt><dd>婚礼见证官</dd></div>
+              <div><dt>时间</dt><dd><span data-field="date">2026.08.22</span> · <span data-field="time">17:30</span></dd></div>
+              <div><dt>地点</dt><dd data-field="venue">杭州柏悦酒店 宴会厅 三层</dd></div>
+            </dl>
+            <ul class="mission-list">
+              <li>见证我们的誓言</li>
+              <li>分享我们的幸福</li>
+              <li>留下属于你的笑容</li>
+            </ul>
+            <button class="primary-button stamp-button ripple-target" type="button" data-next="#witness-ticket">接受任务 ✓</button>
+          </article>
+        </div>
+      </section>
+
+      <section class="scene ticket-scene" id="witness-ticket">
+        <div class="scene-inner ticket-layout">
+          <p class="eyebrow">Witness Ticket</p>
+          <article class="ticket-card witness-ticket">
+            <aside>Witness Ticket</aside>
+            <div class="ticket-main">
+              <p>To Our Wedding</p>
+              <h2>致 <span data-guest-name>张三</span></h2>
+              <div class="ticket-grid">
+                <span>Date</span>
+                <strong data-field="date">2026.08.22</strong>
+                <span>Time</span>
+                <strong data-field="time">17:30</strong>
+                <span>Venue</span>
+                <strong data-field="venue">杭州柏悦酒店 宴会厅 三层</strong>
+              </div>
+              <div class="countdown"><span data-countdown-days>--</span><small>Days</small></div>
+            </div>
+            <div class="ticket-mark" aria-hidden="true"></div>
+          </article>
+          <button class="primary-button ripple-target" type="button" data-next="#witness-rsvp">确认赴约</button>
+        </div>
+      </section>
+
+      <section class="scene rsvp-scene" id="witness-rsvp">
+        <div class="scene-inner form-layout">
+          <p class="eyebrow">RSVP</p>
+          <form class="rsvp-card" data-rsvp-form>
+            <h2>确认你的赴约</h2>
+            <div class="segmented" role="radiogroup" aria-label="是否出席">
+              <label><input type="radio" name="attendance" value="yes" checked /> <span>我会出席 ✓</span></label>
+              <label><input type="radio" name="attendance" value="no" /> <span>遗憾无法出席</span></label>
+            </div>
+            <label class="field-label">你的称呼<input name="name" type="text" value="张三" data-name-input /></label>
+            <label class="field-label">是否携伴<select name="companions"><option>仅自己</option><option>携伴 1 人</option><option>携伴 2 人</option></select></label>
+            <label class="field-label">想对我们说的话<textarea name="message" rows="4" placeholder="希望你们真诚幸福到永远！"></textarea></label>
+            <button class="primary-button ripple-target" type="submit">提交任务 ✓</button>
+            <p class="form-result" data-rsvp-result hidden>你的回应已收到。</p>
+          </form>
+        </div>
+      </section>
+
+      <section class="scene accepted-scene water-scene" id="mission-accepted">
+        <div class="scene-inner accepted-layout">
+          <p class="eyebrow">Mission Accepted</p>
+          <h2>Mission Accepted.</h2>
+          <p>谢谢你，<span data-guest-name>张三</span></p>
+          <p>你已成功接受见证任务。</p>
+          <time data-field="date">2026.08.22</time>
+          <p>我们现场见！</p>
+        </div>
+      </section>
+    </main>
+
+    <div class="lightbox" data-lightbox-modal hidden>
+      <button class="icon-button lightbox-close ripple-target" type="button" aria-label="关闭">×</button>
+      <div class="lightbox-card">
+        <div class="photo-frame photo-frame-large"><span>＋</span></div>
+        <h2 data-lightbox-title>照片标题</h2>
+        <p data-lightbox-caption>照片说明</p>
+      </div>
+    </div>
+
+    <script src="./invite.js?v=20260702-identity-fix"></script>
+  </body>
+</html>
