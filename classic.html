@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>经典版 · Wedding Experience</title>
+    <title>高建 &amp; 齐超儒 · Wedding Experience</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body class="invite-page classic-page" data-mode="classic">
@@ -14,11 +14,7 @@
 
     <nav class="nav-drawer" aria-label="经典版导航">
       <a href="#welcome">首页</a>
-      <a href="#hall-01">展厅 01</a>
-      <a href="#hall-02">展厅 02</a>
-      <a href="#hall-03">展厅 03</a>
-      <a href="#hall-04">展厅 04</a>
-      <a href="#letter">给你的一封信</a>
+      <a href="#hall-01">放映厅</a>
       <a href="#ticket">Wedding Ticket</a>
       <a href="#rsvp">确认赴约</a>
     </nav>
@@ -28,163 +24,151 @@
         <div class="scene-inner cover-inner">
           <p class="eyebrow">The Exhibition of</p>
           <h1>Our Journey</h1>
-          <p class="cover-subtitle">一场关于我们的旅程</p>
-          <button class="cover-photo-frame photo-filled ripple-target" type="button" data-lightbox="封面婚纱照" data-caption="从这一张照片开始，进入我们的婚礼展览。" data-lightbox-src="./assets/封面.jpeg">
-            <img src="./assets/封面.jpeg" alt="封面婚纱照" />
-          </button>
+          <p class="cover-subtitle" aria-label="新郎高建，新娘齐超儒">
+            <span><small>Groom</small><b>高建</b></span>
+            <i aria-hidden="true">&amp;</i>
+            <span><small>Bride</small><b>齐超儒</b></span>
+          </p>
+          <p class="cover-invite-line">诚邀您参加我们的婚礼</p>
+          <figure class="cover-photo-frame photo-filled">
+            <img src="./assets/optimized/封面-display.jpg" alt="封面婚纱照" width="933" height="1400" fetchpriority="high" />
+          </figure>
           <div class="thin-rule"></div>
-          <time data-field="date">2026.08.22</time>
-          <button class="primary-button ripple-target" type="button" data-next="#hall-01">开始旅程</button>
+          <p class="cover-meta"><time data-field="date">2026.08.22</time><span>上海花园饭店</span></p>
+          <button class="primary-button journey-button ripple-target" type="button" data-next="#hall-01" data-journey-start>开始旅程</button>
         </div>
-        <span class="scroll-hint">Scroll</span>
       </section>
 
       <section class="scene gallery-scene" id="hall-01">
-        <article class="scene-inner gallery-panel">
-          <header class="scene-heading">
-            <p>展厅 01</p>
-            <h2>酷酷的我们</h2>
-            <span>～</span>
+        <article class="scene-inner gallery-panel projector-panel projector-theater" data-projector>
+          <header class="scene-heading projector-heading">
+            <h2>爱的放映厅</h2>
           </header>
-          <p class="story-copy">一个人很酷，两个人刚刚好。把各自的棱角放在一起，就成了我们的默契。</p>
-          <div class="photo-collage photo-collage-three" aria-label="酷酷的我们照片集">
-            <button class="photo-frame photo-filled ripple-target" type="button" data-lightbox="酷酷的他" data-caption="他站在那里，像故事刚刚开场。" data-lightbox-src="./assets/酷男.jpeg">
-              <img src="./assets/酷男.jpeg" alt="酷酷的新郎单人照" />
-            </button>
-            <button class="photo-frame photo-filled ripple-target" type="button" data-lightbox="酷酷的她" data-caption="她一出现，画面就有了主角。" data-lightbox-src="./assets/酷女.jpeg">
-              <img src="./assets/酷女.jpeg" alt="酷酷的新娘单人照" />
-            </button>
-            <button class="photo-frame photo-filled ripple-target" type="button" data-lightbox="酷酷的我们" data-caption="两个人站在一起，连空气都变得笃定。" data-lightbox-src="./assets/酷两人.jpeg">
-              <img src="./assets/酷两人.jpeg" alt="新人酷感合照" />
-            </button>
+          <p class="story-copy">灯光暗下，胶片开始转动。那些酷酷的、明亮的、烟火里的瞬间，连成一段关于我们的短片。</p>
+          <div class="projector-gallery" aria-label="自动放映照片集">
+            <div class="projector-window projector-window-large" aria-label="连续播放胶片">
+              <div class="film-strip" data-projector-track>
+                <button class="film-frame photo-filled ripple-target is-active" type="button" data-projector-frame data-projector-index="0" data-lightbox="酷酷的他" data-caption="他站在那里，像故事刚刚开场。" data-lightbox-src="./assets/optimized/酷男-large.jpg">
+                  <img src="./assets/optimized/酷男-display.jpg" alt="酷酷的新郎单人照" width="933" height="1400" decoding="async" />
+                </button>
+                <button class="film-frame photo-filled ripple-target" type="button" data-projector-frame data-projector-index="1" data-lightbox="酷酷的她" data-caption="她一出现，画面就有了主角。" data-lightbox-src="./assets/optimized/酷女-large.jpg">
+                  <img src="./assets/optimized/酷女-display.jpg" alt="酷酷的新娘单人照" width="933" height="1400" decoding="async" />
+                </button>
+                <button class="film-frame film-frame-wide photo-filled ripple-target" type="button" data-projector-frame data-projector-index="2" data-lightbox="酷酷的我们" data-caption="两个人站在一起，连空气都变得笃定。" data-lightbox-src="./assets/optimized/酷两人-large.jpg">
+                  <img src="./assets/optimized/酷两人-display.jpg" alt="新人酷感合照" width="1400" height="933" decoding="async" />
+                </button>
+                <button class="film-frame photo-filled ripple-target" type="button" data-projector-frame data-projector-index="3" data-lightbox="一起奔向远方" data-caption="在开阔的地方，把快乐交给风。" data-lightbox-src="./assets/optimized/户外举手-large.jpg">
+                  <img src="./assets/optimized/户外举手-display.jpg" alt="新人户外举手合照" width="933" height="1400" decoding="async" />
+                </button>
+                <button class="film-frame film-frame-wide photo-filled ripple-target" type="button" data-projector-frame data-projector-index="4" data-lightbox="幸福定格" data-caption="这一刻的幸福，被温柔地留下来。" data-lightbox-src="./assets/optimized/幸福-large.jpg">
+                  <img src="./assets/optimized/幸福-display.jpg" alt="新人幸福合照" width="1400" height="933" decoding="async" />
+                </button>
+                <button class="film-frame photo-filled ripple-target" type="button" data-projector-frame data-projector-index="5" data-lightbox="烟火与约定" data-caption="在烟花前，把这一刻说成永远。" data-lightbox-src="./assets/optimized/烟花面对-large.jpg">
+                  <img src="./assets/optimized/烟花面对-display.jpg" alt="新人面对烟花合照" width="933" height="1400" decoding="async" />
+                </button>
+                <button class="film-frame photo-filled ripple-target" type="button" data-projector-frame data-projector-index="6" data-lightbox="蓝调烟火" data-caption="夜色和烟火，都成为这份约定的背景。" data-lightbox-src="./assets/optimized/烟花蓝调-large.jpg">
+                  <img src="./assets/optimized/烟花蓝调-display.jpg" alt="新人烟花蓝调合照" width="933" height="1400" decoding="async" />
+                </button>
+                <button class="film-frame photo-filled ripple-target" type="button" data-projector-frame data-projector-index="0" data-lightbox="酷酷的他" data-caption="他站在那里，像故事刚刚开场。" data-lightbox-src="./assets/optimized/酷男-large.jpg" aria-hidden="true" tabindex="-1">
+                  <img src="./assets/optimized/酷男-display.jpg" alt="" width="933" height="1400" decoding="async" />
+                </button>
+                <button class="film-frame photo-filled ripple-target" type="button" data-projector-frame data-projector-index="1" data-lightbox="酷酷的她" data-caption="她一出现，画面就有了主角。" data-lightbox-src="./assets/optimized/酷女-large.jpg" aria-hidden="true" tabindex="-1">
+                  <img src="./assets/optimized/酷女-display.jpg" alt="" width="933" height="1400" decoding="async" />
+                </button>
+                <button class="film-frame film-frame-wide photo-filled ripple-target" type="button" data-projector-frame data-projector-index="2" data-lightbox="酷酷的我们" data-caption="两个人站在一起，连空气都变得笃定。" data-lightbox-src="./assets/optimized/酷两人-large.jpg" aria-hidden="true" tabindex="-1">
+                  <img src="./assets/optimized/酷两人-display.jpg" alt="" width="1400" height="933" decoding="async" />
+                </button>
+                <button class="film-frame photo-filled ripple-target" type="button" data-projector-frame data-projector-index="3" data-lightbox="一起奔向远方" data-caption="在开阔的地方，把快乐交给风。" data-lightbox-src="./assets/optimized/户外举手-large.jpg" aria-hidden="true" tabindex="-1">
+                  <img src="./assets/optimized/户外举手-display.jpg" alt="" width="933" height="1400" decoding="async" />
+                </button>
+                <button class="film-frame film-frame-wide photo-filled ripple-target" type="button" data-projector-frame data-projector-index="4" data-lightbox="幸福定格" data-caption="这一刻的幸福，被温柔地留下来。" data-lightbox-src="./assets/optimized/幸福-large.jpg" aria-hidden="true" tabindex="-1">
+                  <img src="./assets/optimized/幸福-display.jpg" alt="" width="1400" height="933" decoding="async" />
+                </button>
+                <button class="film-frame photo-filled ripple-target" type="button" data-projector-frame data-projector-index="5" data-lightbox="烟火与约定" data-caption="在烟花前，把这一刻说成永远。" data-lightbox-src="./assets/optimized/烟花面对-large.jpg" aria-hidden="true" tabindex="-1">
+                  <img src="./assets/optimized/烟花面对-display.jpg" alt="" width="933" height="1400" decoding="async" />
+                </button>
+                <button class="film-frame photo-filled ripple-target" type="button" data-projector-frame data-projector-index="6" data-lightbox="蓝调烟火" data-caption="夜色和烟火，都成为这份约定的背景。" data-lightbox-src="./assets/optimized/烟花蓝调-large.jpg" aria-hidden="true" tabindex="-1">
+                  <img src="./assets/optimized/烟花蓝调-display.jpg" alt="" width="933" height="1400" decoding="async" />
+                </button>
+              </div>
+            </div>
           </div>
-          <footer class="scene-footer">
-            <span>1 / 4</span>
-            <div>
-              <button class="text-icon ripple-target" type="button" data-next="#welcome" aria-label="上一页">←</button>
-              <button class="text-icon ripple-target" type="button" data-next="#hall-02" aria-label="下一页">→</button>
-            </div>
-          </footer>
         </article>
-      </section>
-
-      <section class="scene gallery-scene" id="hall-02">
-        <article class="scene-inner gallery-panel">
-          <header class="scene-heading">
-            <p>展厅 02</p>
-            <h2>一起奔向远方</h2>
-            <span>～</span>
-          </header>
-          <p class="story-copy">风吹过的时候，我们把手举向天空，也把未来举得更高一点。</p>
-          <button class="photo-frame photo-filled ripple-target" type="button" data-lightbox="一起奔向远方" data-caption="在开阔的地方，把快乐交给风。" data-lightbox-src="./assets/户外举手.jpeg">
-            <img src="./assets/户外举手.jpeg" alt="新人户外举手合照" />
-          </button>
-          <footer class="scene-footer">
-            <span>2 / 4</span>
-            <div>
-              <button class="text-icon ripple-target" type="button" data-next="#hall-01" aria-label="上一页">←</button>
-              <button class="text-icon ripple-target" type="button" data-next="#hall-03" aria-label="下一页">→</button>
-            </div>
-          </footer>
-        </article>
-      </section>
-
-      <section class="scene gallery-scene" id="hall-03">
-        <article class="scene-inner gallery-panel">
-          <header class="scene-heading">
-            <p>展厅 03</p>
-            <h2>幸福定格</h2>
-            <span>～</span>
-          </header>
-          <p class="story-copy">有些瞬间不用多说，只要看见笑容，就知道答案是彼此。</p>
-          <button class="photo-frame photo-filled ripple-target" type="button" data-lightbox="幸福定格" data-caption="这一刻的幸福，被温柔地留下来。" data-lightbox-src="./assets/幸福.jpeg">
-            <img src="./assets/幸福.jpeg" alt="新人幸福合照" />
-          </button>
-          <footer class="scene-footer">
-            <span>3 / 4</span>
-            <div>
-              <button class="text-icon ripple-target" type="button" data-next="#hall-02" aria-label="上一页">←</button>
-              <button class="text-icon ripple-target" type="button" data-next="#hall-04" aria-label="下一页">→</button>
-            </div>
-          </footer>
-        </article>
-      </section>
-
-      <section class="scene gallery-scene" id="hall-04">
-        <article class="scene-inner gallery-panel">
-          <header class="scene-heading">
-            <p>展厅 04</p>
-            <h2>烟火与约定</h2>
-            <span>～</span>
-          </header>
-          <p class="story-copy">烟花升起的时候，我们面对彼此，也面对一个被点亮的明天。</p>
-          <div class="photo-collage photo-collage-two" aria-label="烟火与约定照片集">
-            <button class="photo-frame photo-filled ripple-target" type="button" data-lightbox="烟火与约定" data-caption="在烟花前，把这一刻说成永远。" data-lightbox-src="./assets/烟花面对.jpeg">
-              <img src="./assets/烟花面对.jpeg" alt="新人面对烟花合照" />
-            </button>
-            <button class="photo-frame photo-filled ripple-target" type="button" data-lightbox="蓝调烟火" data-caption="夜色和烟火，都成为这份约定的背景。" data-lightbox-src="./assets/烟花蓝调.jpeg">
-              <img src="./assets/烟花蓝调.jpeg" alt="新人烟花蓝调合照" />
-            </button>
-          </div>
-          <footer class="scene-footer">
-            <span>4 / 4</span>
-            <div>
-              <button class="text-icon ripple-target" type="button" data-next="#hall-03" aria-label="上一页">←</button>
-              <button class="text-icon ripple-target" type="button" data-next="#letter" aria-label="下一页">→</button>
-            </div>
-          </footer>
-        </article>
-      </section>
-
-      <section class="scene letter-scene" id="letter">
-        <div class="scene-inner letter-layout">
-          <p class="eyebrow">Personal Letter</p>
-          <article class="paper-letter">
-            <span class="stamp">0822</span>
-            <h2>亲爱的 <span data-guest-name>张三</span>：</h2>
-            <p>感谢你一直以来的陪伴，你的出现让我们的故事更加完整也更美好。</p>
-            <p>8 月 22 日，期待与你相见，一起见证我们的幸福时刻。</p>
-            <p>谢谢这一天，我们会带着爱，迎接新的篇章。</p>
-            <p class="signature">新郎 &amp; 新娘 ♡</p>
-          </article>
-          <button class="primary-button ripple-target" type="button" data-next="#ticket">查看邀请函</button>
-        </div>
       </section>
 
       <section class="scene ticket-scene" id="ticket">
         <div class="scene-inner ticket-layout">
-          <p class="eyebrow">Wedding Ticket</p>
-          <article class="ticket-card">
-            <aside>Admission Ticket</aside>
+          <p class="eyebrow">Wedding Invitation</p>
+          <article class="ticket-card formal-ticket invitation-card">
             <div class="ticket-main">
-              <p>To Our Wedding</p>
-              <h2>致 <span data-guest-name>张三</span></h2>
-              <div class="ticket-grid">
-                <span>Date</span>
-                <strong data-field="date">2026.08.22</strong>
-                <span>Time</span>
-                <strong data-field="time">17:30</strong>
-                <span>Venue</span>
-                <strong data-field="venue">杭州柏悦酒店 宴会厅 三层</strong>
+              <div class="invitation-overline">
+                <span>Formal Invite</span>
+                <span>No. 20260822</span>
               </div>
-              <div class="countdown"><span data-countdown-days>--</span><small>Days</small></div>
+              <div class="couple-badges" aria-label="新人">
+                <figure>
+                  <img src="./assets/optimized/新郎小时候-avatar.jpg" alt="" width="640" height="480" decoding="async" />
+                  <figcaption>Groom<br />高建</figcaption>
+                </figure>
+                <span aria-hidden="true">♡</span>
+                <figure>
+                  <img src="./assets/optimized/新娘小时候-avatar.jpg" alt="" width="430" height="430" decoding="async" />
+                  <figcaption>Bride<br />齐超儒</figcaption>
+                </figure>
+              </div>
+              <div class="ticket-grid invitation-details invitation-details-refined">
+                <section class="detail-row">
+                  <span>Date</span>
+                  <strong data-field="date">2026.08.22</strong>
+                </section>
+                <section class="detail-row">
+                  <span>Venue</span>
+                  <strong data-field="venue">上海花园饭店 · 百花厅</strong>
+                </section>
+                <section class="detail-row">
+                  <span>Address</span>
+                  <strong data-field="address">上海市黄浦区茂名南路58号</strong>
+                </section>
+                <section class="detail-row">
+                  <span>Dresscode</span>
+                  <strong data-field="dresscode">白色 / 黑色 / 香槟色</strong>
+                </section>
+                <section class="detail-timeline" aria-label="婚礼时间轴">
+                  <span>Timeline</span>
+                  <ol>
+                    <li><time>17:00</time><strong>草坪仪式</strong></li>
+                    <li><time>18:00</time><strong>百花厅晚宴</strong></li>
+                  </ol>
+                </section>
+              </div>
+              <div class="countdown"><small>婚礼倒计时</small><strong><span data-countdown-days>--</span><em>Days</em></strong></div>
+              <div class="invitation-closing">
+                <p>诚邀你与我们共同见证这一日的鲜花、晚风与约定。</p>
+                <span>With love and gratitude</span>
+              </div>
+            </div>
+            <div class="handdrawn-flower" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
             </div>
             <div class="ticket-mark" aria-hidden="true"></div>
           </article>
-          <button class="primary-button ripple-target" type="button" data-next="#rsvp">确认赴约</button>
         </div>
       </section>
 
       <section class="scene rsvp-scene" id="rsvp">
         <div class="scene-inner form-layout">
-          <p class="eyebrow">RSVP</p>
+          <p class="eyebrow">Welcome to our wedding</p>
           <form class="rsvp-card" data-rsvp-form>
+            <p class="rsvp-kicker">[ 婚礼回执 ]</p>
             <h2>你能来参加我们的婚礼吗？</h2>
+            <p class="rsvp-note">You are the best for us</p>
             <div class="segmented" role="radiogroup" aria-label="是否出席">
               <label><input type="radio" name="attendance" value="yes" checked /> <span>我会出席</span></label>
               <label><input type="radio" name="attendance" value="no" /> <span>遗憾不能出席</span></label>
             </div>
-            <label class="field-label">宾客姓名<input name="name" type="text" value="张三" data-name-input /></label>
+            <label class="field-label">宾客姓名<input name="name" type="text" value="亲友" data-name-input /></label>
             <label class="field-label">携伴人数<select name="companions"><option>仅自己</option><option>携伴 1 人</option><option>携伴 2 人</option></select></label>
             <label class="field-label">祝福留言<textarea name="message" rows="4" placeholder="写下你对我们的祝福吧～"></textarea></label>
             <button class="primary-button ripple-target" type="submit">提交 ♥</button>
@@ -195,9 +179,21 @@
 
       <section class="scene ending-scene water-scene" id="ending">
         <div class="scene-inner ending-inner">
+          <p class="eyebrow">See You There</p>
           <h2>Every encounter creates a ripple.</h2>
-          <p>每一次相遇，都会激起一圈涟漪。</p>
-          <p>谢谢你，也成为了我们生命中的一圈涟漪。</p>
+          <figure class="cover-photo-frame ending-photo-frame photo-filled" aria-label="高建与齐超儒婚纱照">
+            <img src="./assets/optimized/双人结尾-display.jpg" alt="" width="933" height="1400" decoding="async" />
+          </figure>
+          <div class="thin-rule"></div>
+          <div class="ending-message">
+            <p>每一次相遇，都会激起一圈涟漪。</p>
+            <p>2026 年 8 月 22 日，上海花园饭店见。</p>
+          </div>
+          <div class="ending-details" aria-label="婚礼信息">
+            <span>2026.08.22</span>
+            <strong>Garden Hotel Shanghai</strong>
+            <small>Gao Jian &amp; Qi Chaoru</small>
+          </div>
         </div>
       </section>
     </main>

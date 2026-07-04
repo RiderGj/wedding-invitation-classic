@@ -2,39 +2,104 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 
 const html = fs.readFileSync("classic.html", "utf8");
+const js = fs.readFileSync("invite.js", "utf8");
 
 const includes = (value) => {
   assert.ok(html.includes(value), `Expected classic.html to include: ${value}`);
 };
 
-includes('src="./assets/封面.jpeg"');
-includes('data-lightbox-src="./assets/封面.jpeg"');
+const between = (start, end) => {
+  const startIndex = html.indexOf(start);
+  const endIndex = html.indexOf(end, startIndex);
+  assert.ok(startIndex >= 0 && endIndex > startIndex, `Expected range from ${start} to ${end}`);
+  return html.slice(startIndex, endIndex);
+};
+
+includes('src="./assets/optimized/封面-display.jpg"');
+includes('class="cover-photo-frame photo-filled"');
+includes("The Exhibition of");
+includes("<h1>Our Journey</h1>");
+includes("诚邀您参加我们的婚礼");
+includes('class="cover-meta"><time data-field="date">2026.08.22</time><span>上海花园饭店</span></p>');
+includes('aria-label="新郎高建，新娘齐超儒"');
+includes("<small>Groom</small><b>高建</b>");
+includes("<small>Bride</small><b>齐超儒</b>");
+assert.ok(!html.includes('button class="cover-photo-frame'), "Expected cover photo not to be clickable");
+assert.ok(!html.includes('class="scroll-hint"'), "Expected clipped scroll hint to be removed");
+assert.ok(!html.includes('data-lightbox-src="./assets/optimized/封面-large.jpg"'), "Expected cover photo to be static");
+assert.ok(!html.includes("高建 &amp; 齐超儒的婚礼邀请"), "Expected cover subtitle to use bride/groom labels");
+assert.ok(!html.includes("新郎：高建　新娘：齐超儒"), "Expected cover subtitle to avoid plain bride/groom sentence");
+includes("上海花园饭店 · 百花厅");
+includes("上海市黄浦区茂名南路58号");
+includes("白色 / 黑色 / 香槟色");
+includes("data-journey-start");
+includes("journey-button");
 
 includes('id="hall-01"');
-includes("酷男.jpeg");
-includes("酷女.jpeg");
-includes("酷两人.jpeg");
-includes('class="photo-collage photo-collage-three"');
-includes("酷酷的我们");
+includes("酷男-display.jpg");
+includes("酷女-display.jpg");
+includes("酷两人-display.jpg");
+includes("户外举手-display.jpg");
+includes("幸福-display.jpg");
+includes("烟花面对-display.jpg");
+includes("烟花蓝调-display.jpg");
+includes('data-projector');
+includes('class="projector-window projector-window-large"');
+includes('class="film-strip"');
+includes("爱的放映厅");
+includes("放映厅");
+assert.ok(!html.includes('class="scene-footer"'), "Expected projector footer controls to be removed");
+assert.ok(!html.includes("1 / 1"), "Expected projector page counter to be removed");
+assert.ok(!html.includes('aria-label="上一页"'), "Expected projector previous button to be removed");
+assert.ok(!html.includes('aria-label="下一页"'), "Expected projector next button to be removed");
+assert.ok(!html.includes("<span>囍</span>"), "Expected projector heading xi mark to be removed");
+assert.ok(!html.includes("data-projector-screen"), "Expected projector to be one large film strip");
 
-includes('id="hall-02"');
-includes("户外举手.jpeg");
-includes("一起奔向远方");
+includes('class="ticket-card formal-ticket invitation-card"');
+includes('class="ticket-grid invitation-details invitation-details-refined"');
+includes('class="detail-timeline"');
+includes("婚礼倒计时");
+includes('src="./assets/optimized/新郎小时候-avatar.jpg"');
+includes('src="./assets/optimized/新娘小时候-avatar.jpg"');
+includes("<span data-countdown-days>--</span>");
+const coupleBadges = between('class="couple-badges"', 'class="ticket-grid invitation-details invitation-details-refined"');
+assert.ok(!coupleBadges.includes("酷男-display.jpg"), "Expected groom badge to use childhood photo");
+assert.ok(!coupleBadges.includes("酷女-display.jpg"), "Expected bride badge to use childhood photo");
+assert.ok(js.includes('countdownTarget: "2026-08-22T17:00:00+08:00"'), "Expected countdown target to be wedding time");
+assert.ok(js.includes("Date.now()"), "Expected countdown to be calculated from current time");
+assert.ok(js.includes("window.setInterval(updateCountdown, 60000)"), "Expected countdown to refresh dynamically");
+includes('class="couple-badges"');
+includes('class="invitation-closing"');
+includes("诚邀你与我们共同见证这一日的鲜花、晚风与约定。");
+includes('class="handdrawn-flower"');
+assert.ok(!html.includes("致 <span data-guest-name>亲友</span>"), "Expected guest greeting to be removed");
+assert.ok(!html.includes("Garden Wedding"), "Expected ticket side rail to be removed");
+assert.ok(!html.includes("谨以一纸花笺"), "Expected invitation copy to be removed");
+assert.ok(!html.includes('class="invitation-signature"'), "Expected signature block to be removed");
+assert.ok(!html.includes('data-next="#rsvp"'), "Expected ticket RSVP button to be removed");
+includes("Welcome to our wedding");
+includes('class="rsvp-kicker"');
+includes("See You There");
+includes('class="cover-photo-frame ending-photo-frame photo-filled"');
+includes('src="./assets/optimized/双人结尾-display.jpg"');
 
-includes('id="hall-03"');
-includes("幸福.jpeg");
-includes("幸福定格");
-
-includes('id="hall-04"');
-includes("烟花面对.jpeg");
-includes("烟花蓝调.jpeg");
-includes('class="photo-collage photo-collage-two"');
-includes("烟火与约定");
-
+assert.ok(!html.includes('id="letter"'), "Expected letter page to be removed");
+assert.ok(!html.includes('href="#letter"'), "Expected no letter nav link");
+assert.ok(!html.includes('data-next="#letter"'), "Expected no navigation to letter page");
+assert.ok(!html.includes("Formal Invitation"), "Expected formal invitation page to be removed");
+assert.ok(!html.includes('id="hall-02"'), "Expected hall-02 to be folded into projector");
+assert.ok(!html.includes('id="hall-03"'), "Expected hall-03 to be folded into projector");
+assert.ok(!html.includes('id="hall-04"'), "Expected hall-04 to be folded into projector");
+assert.ok(!html.includes('href="#hall-02"'), "Expected no hall-02 nav link");
+assert.ok(!html.includes('href="#hall-03"'), "Expected no hall-03 nav link");
+assert.ok(!html.includes('href="#hall-04"'), "Expected no hall-04 nav link");
+assert.ok(!html.includes('data-next="#hall-02"'), "Expected no navigation to hall-02");
+assert.ok(!html.includes('data-next="#hall-03"'), "Expected no navigation to hall-03");
+assert.ok(!html.includes('data-next="#hall-04"'), "Expected no navigation to hall-04");
 assert.ok(!html.includes('id="hall-05"'), "Expected hall-05 to be removed");
 assert.ok(!html.includes('href="#hall-05"'), "Expected hall-05 nav link to be removed");
 assert.ok(!html.includes('data-next="#hall-05"'), "Expected no navigation to hall-05");
 assert.equal((html.match(/class="carousel-track"/g) || []).length, 0);
-assert.equal((html.match(/data-lightbox-src=/g) || []).length, 8);
+assert.equal((html.match(/data-lightbox-src=/g) || []).length, 14);
 
 console.log("classic static checks passed");

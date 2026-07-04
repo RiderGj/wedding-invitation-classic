@@ -1,10 +1,12 @@
 (() => {
   const inviteData = {
-    guestName: "张三",
+    guestName: "亲友",
     date: "2026.08.22",
-    time: "17:30",
-    venue: "杭州柏悦酒店 宴会厅 三层",
-    countdownTarget: "2026-08-22T17:30:00+08:00",
+    time: "17:00 草坪仪式 · 18:00 百花厅晚宴",
+    venue: "上海花园饭店 · 百花厅",
+    address: "上海市黄浦区茂名南路58号",
+    dresscode: "白色 / 黑色 / 香槟色",
+    countdownTarget: "2026-08-22T17:00:00+08:00",
   };
 
   const $ = (selector, scope = document) => scope.querySelector(selector);
@@ -23,6 +25,15 @@
     });
   };
 
+  const updateCountdown = () => {
+    const target = new Date(inviteData.countdownTarget);
+    const diff = target.getTime() - Date.now();
+    const days = Math.max(0, Math.ceil(diff / 86400000));
+    $$("[data-countdown-days]").forEach((node) => {
+      node.textContent = String(days);
+    });
+  };
+
   const applyInviteData = () => {
     $$('[data-field="date"]').forEach((node) => {
       node.textContent = inviteData.date;
@@ -33,14 +44,15 @@
     $$('[data-field="venue"]').forEach((node) => {
       node.textContent = inviteData.venue;
     });
-
-    const target = new Date(inviteData.countdownTarget);
-    const diff = target.getTime() - Date.now();
-    const days = Math.max(0, Math.ceil(diff / 86400000));
-    $$("[data-countdown-days]").forEach((node) => {
-      node.textContent = String(days);
+    $$('[data-field="address"]').forEach((node) => {
+      node.textContent = inviteData.address;
+    });
+    $$('[data-field="dresscode"]').forEach((node) => {
+      node.textContent = inviteData.dresscode;
     });
 
+    updateCountdown();
+    window.setInterval(updateCountdown, 60000);
     setGuestName(inviteData.guestName);
   };
 
@@ -84,9 +96,21 @@
 
     $$("[data-next]").forEach((button) => {
       button.addEventListener("click", () => {
+        const target = button.getAttribute("data-next");
         button.classList.add("is-active");
         window.setTimeout(() => button.classList.remove("is-active"), 700);
-        scrollToTarget(button.getAttribute("data-next"));
+        if (button.matches("[data-journey-start]")) {
+          const coverScene = button.closest(".cover-scene");
+          button.classList.add("is-launching");
+          coverScene?.classList.add("is-launching");
+          window.setTimeout(() => {
+            button.classList.remove("is-launching");
+            coverScene?.classList.remove("is-launching");
+          }, 900);
+          window.setTimeout(() => scrollToTarget(target), 540);
+          return;
+        }
+        scrollToTarget(target);
       });
     });
   };
@@ -95,16 +119,67 @@
     $$("[data-name-input]").forEach((input) => {
       input.addEventListener("input", () => {
         setGuestName(input.value, {
-          fallback: "亲爱的朋友",
+          fallback: "朋友",
           sourceInput: input,
         });
       });
     });
   };
 
+  const bindProjector = () => {
+    const projector = $("[data-projector]");
+    if (!projector) return;
+
+    const frames = $$("[data-projector-frame]", projector);
+    const slides = frames
+      .filter((frame) => frame.getAttribute("aria-hidden") !== "true")
+      .map((frame) => Number(frame.dataset.projectorIndex) || 0);
+
+    if (!slides.length) return;
+
+    let activeIndex = 0;
+    let timer = null;
+
+    const setActiveSlide = (index) => {
+      activeIndex = (index + slides.length) % slides.length;
+
+      frames.forEach((frame) => {
+        frame.classList.toggle("is-active", Number(frame.dataset.projectorIndex) === activeIndex);
+      });
+    };
+
+    const start = () => {
+      if (timer || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      timer = window.setInterval(() => setActiveSlide(activeIndex + 1), 3600);
+    };
+
+    const stop = () => {
+      if (!timer) return;
+      window.clearInterval(timer);
+      timer = null;
+    };
+
+    frames.forEach((frame) => {
+      frame.addEventListener("click", () => {
+        setActiveSlide(Number(frame.dataset.projectorIndex) || 0);
+      });
+    });
+
+    projector.addEventListener("pointerenter", stop);
+    projector.addEventListener("pointerleave", start);
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) stop();
+      else start();
+    });
+
+    setActiveSlide(0);
+    start();
+  };
+
   const bindIdentity = () => {
     const form = $("[data-identity-form]");
     if (!form) return;
+    const submitButton = $('button[type="submit"]', form);
 
     $$('input[name="identity"]', form).forEach((radio) => {
       radio.closest("label")?.addEventListener("click", () => {
@@ -119,6 +194,7 @@
 
     form.addEventListener("submit", (event) => {
       event.preventDefault();
+      if (form.classList.contains("is-verifying")) return;
       const formData = new FormData(form);
       setGuestName(String(formData.get("guestName") || ""), {
         fallback: inviteData.guestName,
@@ -131,7 +207,24 @@
         return;
       }
 
-      scrollToTarget("#letter-opening");
+      const delay = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 120 : 1350;
+      form.classList.add("is-verifying");
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = "开启中";
+      }
+
+      window.setTimeout(() => {
+        scrollToTarget("#personal-letter");
+      }, delay);
+
+      window.setTimeout(() => {
+        form.classList.remove("is-verifying");
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = "确认身份";
+        }
+      }, delay + 720);
     });
   };
 
@@ -263,6 +356,7 @@
   bindRipple();
   bindNavigation();
   bindNames();
+  bindProjector();
   bindIdentity();
   bindLightbox();
   bindRsvp();

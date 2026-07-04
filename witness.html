@@ -16,7 +16,7 @@
       <a href="#secret-letter">神秘来信</a>
       <a href="#identity-check">确认身份</a>
       <a href="#personal-letter">专属来信</a>
-      <a href="#memory-gallery">记忆展厅</a>
+      <a href="#hall-01">放映厅</a>
       <a href="#mission">见证任务</a>
       <a href="#witness-ticket">Witness Ticket</a>
       <a href="#witness-rsvp">确认赴约</a>
@@ -25,16 +25,20 @@
     <main class="screen-stack">
       <section class="scene witness-cover" id="secret-letter">
         <div class="scene-inner envelope-layout">
-          <p class="eyebrow">Witness Mode</p>
-          <div class="envelope-card">
+          <p class="eyebrow">Secret Letter</p>
+          <h1 class="secret-letter-title">一封神秘的来信</h1>
+          <div class="envelope-card mysterious-letter-card">
             <div class="envelope-flap"></div>
-            <div class="wax-seal">0822</div>
-            <p>To:</p>
-            <h1 data-guest-name>亲爱的朋友</h1>
+            <div class="wax-seal rose-seal" aria-label="玫瑰印章">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
             <span>Personal · Please Open By Yourself</span>
           </div>
           <p class="small-note">这封信，仅限本人亲启。</p>
-          <button class="primary-button ripple-target" type="button" data-next="#identity-check">我来开启</button>
+          <button class="primary-button ripple-target" type="button" data-next="#identity-check">开启</button>
         </div>
       </section>
 
@@ -43,12 +47,22 @@
           <p class="eyebrow">Identity Check</p>
           <form class="identity-paper" data-identity-form>
             <h2>请确认你的身份</h2>
-            <label class="field-label">请输入你的名字<input type="text" value="张三" data-name-input name="guestName" autocomplete="name" /></label>
+            <label class="field-label">请输入你的名字<input type="text" name="guestName" autocomplete="name" placeholder="你的名字" /></label>
             <div class="choice-stack" role="radiogroup" aria-label="身份确认">
               <label data-identity-choice="self"><input type="radio" name="identity" value="self" checked /> <span>我就是本人</span></label>
               <label data-identity-choice="other"><input type="radio" name="identity" value="other" /> <span>不是本人</span></label>
             </div>
             <button class="primary-button ripple-target" type="submit">确认身份</button>
+            <div class="identity-reveal" role="status" aria-live="polite">
+              <div class="identity-reveal-seal" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <strong>身份已确认</strong>
+              <small>信件正在展开</small>
+            </div>
           </form>
           <p class="small-note">确认后，信件将为你亲自展开。</p>
         </div>
@@ -65,21 +79,6 @@
         </div>
       </section>
 
-      <section class="scene opening-scene" id="letter-opening">
-        <div class="scene-inner opening-layout">
-          <p class="eyebrow">Letter Opening</p>
-          <div class="open-envelope">
-            <div class="paper-rise">
-              <span>To: <b data-guest-name>张三</b></span>
-              <strong>亲启</strong>
-            </div>
-            <div class="wax-seal cracked">0822</div>
-          </div>
-          <p>信件开启中...</p>
-          <button class="primary-button ripple-target" type="button" data-next="#personal-letter">阅读来信</button>
-        </div>
-      </section>
-
       <section class="scene letter-scene witness-letter-scene" id="personal-letter">
         <div class="scene-inner letter-layout">
           <p class="eyebrow">Personal Letter</p>
@@ -91,36 +90,66 @@
             <p>所以今天，我们想邀请你继续见证下一章节。</p>
             <p class="signature">新郎 &amp; 新娘 ♡</p>
           </article>
-          <button class="primary-button ripple-target" type="button" data-next="#memory-gallery">进入记忆展厅</button>
+          <button class="primary-button ripple-target" type="button" data-next="#hall-01">进入放映厅</button>
         </div>
       </section>
 
-      <section class="scene memory-scene" id="memory-gallery">
-        <div class="scene-inner memory-layout">
-          <header class="scene-heading center-heading">
-            <p>Memory Gallery</p>
-            <h2>属于我们的时光</h2>
-            <span>～</span>
+      <section class="scene memory-scene" id="hall-01">
+        <article class="scene-inner gallery-panel projector-panel projector-theater witness-projector" data-projector>
+          <header class="scene-heading projector-heading">
+            <h2>爱的放映厅</h2>
           </header>
-          <div class="room-strip" aria-label="记忆展厅">
-            <article class="room-card">
-              <span>房间 01</span>
-              <h3>相遇</h3>
-              <button class="photo-frame ripple-target" type="button" data-lightbox="房间 01 · 相遇" data-caption="替换为相遇主题照片。"><small>进入房间 →</small></button>
-            </article>
-            <article class="room-card">
-              <span>房间 02</span>
-              <h3>相知</h3>
-              <button class="photo-frame ripple-target" type="button" data-lightbox="房间 02 · 相知" data-caption="替换为相知主题照片。"><small>进入房间 →</small></button>
-            </article>
-            <article class="room-card">
-              <span>房间 03</span>
-              <h3>相爱</h3>
-              <button class="photo-frame ripple-target" type="button" data-lightbox="房间 03 · 相爱" data-caption="替换为相爱主题照片。"><small>进入房间 →</small></button>
-            </article>
+          <p class="story-copy">灯光暗下，胶片开始转动。那些酷酷的、明亮的、烟火里的瞬间，连成一段关于我们的短片。</p>
+          <div class="projector-gallery" aria-label="自动放映照片集">
+            <div class="projector-window projector-window-large" aria-label="连续播放胶片">
+              <div class="film-strip" data-projector-track>
+                <button class="film-frame photo-filled ripple-target is-active" type="button" data-projector-frame data-projector-index="0" data-lightbox="酷酷的他" data-caption="他站在那里，像故事刚刚开场。" data-lightbox-src="./assets/optimized/酷男-large.jpg">
+                  <img src="./assets/optimized/酷男-display.jpg" alt="酷酷的新郎单人照" width="933" height="1400" decoding="async" />
+                </button>
+                <button class="film-frame photo-filled ripple-target" type="button" data-projector-frame data-projector-index="1" data-lightbox="酷酷的她" data-caption="她一出现，画面就有了主角。" data-lightbox-src="./assets/optimized/酷女-large.jpg">
+                  <img src="./assets/optimized/酷女-display.jpg" alt="酷酷的新娘单人照" width="933" height="1400" decoding="async" />
+                </button>
+                <button class="film-frame film-frame-wide photo-filled ripple-target" type="button" data-projector-frame data-projector-index="2" data-lightbox="酷酷的我们" data-caption="两个人站在一起，连空气都变得笃定。" data-lightbox-src="./assets/optimized/酷两人-large.jpg">
+                  <img src="./assets/optimized/酷两人-display.jpg" alt="新人酷感合照" width="1400" height="933" decoding="async" />
+                </button>
+                <button class="film-frame photo-filled ripple-target" type="button" data-projector-frame data-projector-index="3" data-lightbox="一起奔向远方" data-caption="在开阔的地方，把快乐交给风。" data-lightbox-src="./assets/optimized/户外举手-large.jpg">
+                  <img src="./assets/optimized/户外举手-display.jpg" alt="新人户外举手合照" width="933" height="1400" decoding="async" />
+                </button>
+                <button class="film-frame film-frame-wide photo-filled ripple-target" type="button" data-projector-frame data-projector-index="4" data-lightbox="幸福定格" data-caption="这一刻的幸福，被温柔地留下来。" data-lightbox-src="./assets/optimized/幸福-large.jpg">
+                  <img src="./assets/optimized/幸福-display.jpg" alt="新人幸福合照" width="1400" height="933" decoding="async" />
+                </button>
+                <button class="film-frame photo-filled ripple-target" type="button" data-projector-frame data-projector-index="5" data-lightbox="烟火与约定" data-caption="在烟花前，把这一刻说成永远。" data-lightbox-src="./assets/optimized/烟花面对-large.jpg">
+                  <img src="./assets/optimized/烟花面对-display.jpg" alt="新人面对烟花合照" width="933" height="1400" decoding="async" />
+                </button>
+                <button class="film-frame photo-filled ripple-target" type="button" data-projector-frame data-projector-index="6" data-lightbox="蓝调烟火" data-caption="夜色和烟火，都成为这份约定的背景。" data-lightbox-src="./assets/optimized/烟花蓝调-large.jpg">
+                  <img src="./assets/optimized/烟花蓝调-display.jpg" alt="新人烟花蓝调合照" width="933" height="1400" decoding="async" />
+                </button>
+                <button class="film-frame photo-filled ripple-target" type="button" data-projector-frame data-projector-index="0" data-lightbox="酷酷的他" data-caption="他站在那里，像故事刚刚开场。" data-lightbox-src="./assets/optimized/酷男-large.jpg" aria-hidden="true" tabindex="-1">
+                  <img src="./assets/optimized/酷男-display.jpg" alt="" width="933" height="1400" decoding="async" />
+                </button>
+                <button class="film-frame photo-filled ripple-target" type="button" data-projector-frame data-projector-index="1" data-lightbox="酷酷的她" data-caption="她一出现，画面就有了主角。" data-lightbox-src="./assets/optimized/酷女-large.jpg" aria-hidden="true" tabindex="-1">
+                  <img src="./assets/optimized/酷女-display.jpg" alt="" width="933" height="1400" decoding="async" />
+                </button>
+                <button class="film-frame film-frame-wide photo-filled ripple-target" type="button" data-projector-frame data-projector-index="2" data-lightbox="酷酷的我们" data-caption="两个人站在一起，连空气都变得笃定。" data-lightbox-src="./assets/optimized/酷两人-large.jpg" aria-hidden="true" tabindex="-1">
+                  <img src="./assets/optimized/酷两人-display.jpg" alt="" width="1400" height="933" decoding="async" />
+                </button>
+                <button class="film-frame photo-filled ripple-target" type="button" data-projector-frame data-projector-index="3" data-lightbox="一起奔向远方" data-caption="在开阔的地方，把快乐交给风。" data-lightbox-src="./assets/optimized/户外举手-large.jpg" aria-hidden="true" tabindex="-1">
+                  <img src="./assets/optimized/户外举手-display.jpg" alt="" width="933" height="1400" decoding="async" />
+                </button>
+                <button class="film-frame film-frame-wide photo-filled ripple-target" type="button" data-projector-frame data-projector-index="4" data-lightbox="幸福定格" data-caption="这一刻的幸福，被温柔地留下来。" data-lightbox-src="./assets/optimized/幸福-large.jpg" aria-hidden="true" tabindex="-1">
+                  <img src="./assets/optimized/幸福-display.jpg" alt="" width="1400" height="933" decoding="async" />
+                </button>
+                <button class="film-frame photo-filled ripple-target" type="button" data-projector-frame data-projector-index="5" data-lightbox="烟火与约定" data-caption="在烟花前，把这一刻说成永远。" data-lightbox-src="./assets/optimized/烟花面对-large.jpg" aria-hidden="true" tabindex="-1">
+                  <img src="./assets/optimized/烟花面对-display.jpg" alt="" width="933" height="1400" decoding="async" />
+                </button>
+                <button class="film-frame photo-filled ripple-target" type="button" data-projector-frame data-projector-index="6" data-lightbox="蓝调烟火" data-caption="夜色和烟火，都成为这份约定的背景。" data-lightbox-src="./assets/optimized/烟花蓝调-large.jpg" aria-hidden="true" tabindex="-1">
+                  <img src="./assets/optimized/烟花蓝调-display.jpg" alt="" width="933" height="1400" decoding="async" />
+                </button>
+              </div>
+            </div>
           </div>
           <button class="primary-button ripple-target" type="button" data-next="#mission">领取见证任务</button>
-        </div>
+        </article>
       </section>
 
       <section class="scene mission-scene" id="mission">
@@ -204,7 +233,9 @@
     <div class="lightbox" data-lightbox-modal hidden>
       <button class="icon-button lightbox-close ripple-target" type="button" aria-label="关闭">×</button>
       <div class="lightbox-card">
-        <div class="photo-frame photo-frame-large"><span>＋</span></div>
+        <div class="photo-frame photo-frame-large photo-filled">
+          <img data-lightbox-image alt="" />
+        </div>
         <h2 data-lightbox-title>照片标题</h2>
         <p data-lightbox-caption>照片说明</p>
       </div>
