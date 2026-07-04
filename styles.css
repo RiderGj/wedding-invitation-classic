@@ -2692,7 +2692,7 @@ a {
   padding-top: clamp(18px, 3.8svh, 28px);
   padding-bottom: clamp(18px, 3.8svh, 28px);
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .witness-projector .projector-heading {
@@ -2720,6 +2720,31 @@ a {
 
 .witness-projector .film-frame-wide {
   width: min(82vw, 380px);
+}
+
+.witness-projector .projector-mission-button {
+  min-width: 156px;
+  min-height: 44px;
+  margin-top: clamp(18px, 3.8svh, 30px);
+  border: 1px solid rgba(248, 239, 224, 0.34);
+  background:
+    linear-gradient(120deg, transparent 0 34%, rgba(248, 239, 224, 0.2) 42%, transparent 52%),
+    linear-gradient(180deg, rgba(155, 85, 78, 0.94), rgba(95, 49, 43, 0.96));
+  background-size: 240% 100%, 100% 100%;
+  color: #fff8ec;
+  box-shadow:
+    0 16px 28px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(248, 239, 224, 0.28);
+  font-family: "Kaiti SC", "STKaiti", "Songti SC", serif;
+}
+
+.witness-projector .projector-mission-button::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  pointer-events: none;
+  border: 1px solid rgba(248, 239, 224, 0.18);
+  border-radius: 4px;
 }
 
 .mission-paper {

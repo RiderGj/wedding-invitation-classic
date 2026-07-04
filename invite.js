@@ -9,12 +9,287 @@
     countdownTarget: "2026-08-22T17:00:00+08:00",
   };
 
+  const guestGroups = {
+    main: [
+      "高永权",
+      "阳菊英",
+      "阳莹",
+      "张敏",
+      "伟鹏",
+      "乐乐奶奶",
+      "乐乐叔叔",
+      "乐乐爷爷",
+      "毛老师",
+    ],
+    brideFamily: ["乐乐婶婶", "齐熠儒", "韩慧娟", "王亚娜"],
+    groomFamily: [
+      "二姐",
+      "大舅娘",
+      "三舅舅",
+      "三舅娘",
+      "娇姐",
+      "蔡梓涵",
+      "姐夫",
+      "轩轩",
+      "高永山",
+      "高永红",
+      "高永红（小)",
+      "高远庆",
+      "王松",
+      "高空",
+      "高永如",
+      "贾川云",
+      "高紫馨",
+      "孙恒军",
+      "孙恒飞",
+      "孙恒林",
+      "孙恒团",
+      "孙恒刚",
+      "孙健",
+      "孙恒举",
+      "孙延明",
+      "孙恒强",
+      "高梅松",
+      "李娟",
+      "陆楠",
+      "高兴",
+      "李乐怡",
+      "李乐怡（小）",
+      "高永耀",
+      "高雪梦",
+      "王丽萍",
+      "高郑龙",
+      "王凤蕊",
+      "高明明",
+    ],
+    brideFriend: [
+      "白京津",
+      "刘子亮",
+      "陈雅冰",
+      "姜拓",
+      "葛娅楠",
+      "胡振涛",
+      "姚佳隆",
+      "张杰",
+      "叶熠",
+      "徐莹",
+      "Maggie",
+      "唐龙",
+      "王璐",
+      "王晓航",
+      "彭双艳",
+      "椰子",
+      "张丽娴",
+      "沙倩倩",
+      "师琪琪",
+      "文章茂雅",
+      "张欣怡",
+      "吴大萌",
+    ],
+    groomFriend: [
+      "熊威",
+      "曹明昊",
+      "冯立伟",
+      "丁中兴",
+      "曹志东",
+      "东哥",
+      "曹志东（东哥）",
+      "杜骏翰",
+      "刘鹏飞",
+      "郝帅",
+      "杜元舜",
+      "程义",
+      "hyacin",
+      "阿里",
+      "yanlin",
+      "飞",
+    ],
+    colleague: [
+      "老孔",
+      "刘德金",
+      "高远忠",
+      "祖庄美",
+      "周建明",
+      "刘邦贞",
+      "周国定",
+      "隆国全",
+      "王金海",
+      "戴圆圆",
+      "陈松",
+      "华立鹏",
+      "高丹",
+      "潘洪力",
+      "毛萍",
+      "李同金",
+      "赵工",
+      "蒋永恒",
+      "小贺",
+    ],
+    client: [
+      "金苏航",
+      "王佳敏",
+      "张文军",
+      "王荣洲",
+      "杨亮亮",
+      "张鹤平",
+      "唐闯成",
+      "钱惠忠",
+      "陈圣",
+      "顾云方",
+      "徐金芝",
+      "顾兴",
+      "王京",
+      "封平",
+      "王军",
+      "何小华",
+      "杨孝保",
+      "王建军",
+      "张挺中",
+      "戴波",
+    ],
+    parentFriend: ["罗艳", "陈林多", "黄阿姨", "涂涛涛", "谭先", "老潘", "曾林", "汪成胜"],
+  };
+
+  const letterTemplates = {
+    main: {
+      stamp: "Family",
+      title: "亲爱的 {name}：",
+      paragraphs: [
+        "这一天能有你在，对我们来说格外珍贵。你见过我们最真实的样子，也一直把祝福放在很近的地方。",
+        "从家人的惦念，到每一次认真帮忙和牵挂，你都让这场婚礼不只是仪式，更像一次温暖的团圆。",
+        "所以这封信，想先把最郑重的邀请交给你：请来见证我们人生里很重要的一页。",
+      ],
+      signature: "高建 & 齐超儒 敬上",
+    },
+    brideFamily: {
+      stamp: "Family",
+      title: "亲爱的 {name}：",
+      paragraphs: [
+        "谢谢你一直疼爱、陪伴和牵挂着超儒。那些来自家人的支持，安静却有力量，陪她走到了今天。",
+        "婚礼这一天，我们想把这份喜悦认真交到你手里，也想让你看见她被爱包围、继续出发的样子。",
+        "请你来现场，和我们一起把这份团圆与祝福留在 2026 年 8 月 22 日。",
+      ],
+      signature: "高建 & 齐超儒 敬上",
+    },
+    groomFamily: {
+      stamp: "Family",
+      title: "亲爱的 {name}：",
+      paragraphs: [
+        "谢谢你一直关心、照顾和支持着高建。家人的祝福，是这段旅程里最踏实的底色。",
+        "从小时候到今天，很多被记住的瞬间里，都有亲人的笑声、叮嘱和牵挂。",
+        "这一次，我们想邀请你到现场，亲眼见证他和超儒开启新的家庭篇章。",
+      ],
+      signature: "高建 & 齐超儒 敬上",
+    },
+    brideFriend: {
+      stamp: "Friend",
+      title: "亲爱的 {name}：",
+      paragraphs: [
+        "谢谢你陪超儒走过那些闪闪发光的日子。一起笑过、聊过、认真生活过的片段，都被悄悄收进了她的故事里。",
+        "朋友的陪伴常常不用说太多，却总能在关键时刻给人底气和快乐。",
+        "所以这一次，我们想邀请你继续坐在故事最近的位置，见证她走向新的幸福。",
+      ],
+      signature: "高建 & 齐超儒 ♡",
+    },
+    groomFriend: {
+      stamp: "Friend",
+      title: "亲爱的 {name}：",
+      paragraphs: [
+        "谢谢你一路陪高建走到今天。那些一起并肩、玩笑、认真聊过未来的时刻，都成了他人生里很重要的坐标。",
+        "真正的朋友，是很多话不用解释，也知道彼此会在重要时刻出现。",
+        "这一次，我们想邀请你来到现场，继续做这个重要时刻的见证者。",
+      ],
+      signature: "高建 & 齐超儒 ♡",
+    },
+    colleague: {
+      stamp: "Colleague",
+      title: "亲爱的 {name}：",
+      paragraphs: [
+        "谢谢你在工作与生活里给予高建的支持和信任。并肩做事的日子，也让很多关系拥有了更珍贵的情分。",
+        "婚礼是生活里很柔软的一面，我们也希望把这份喜悦与你分享。",
+        "诚挚邀请你来到现场，见证我们从工作之外，走进人生新章节的一天。",
+      ],
+      signature: "高建 & 齐超儒 敬邀",
+    },
+    client: {
+      stamp: "Guest",
+      title: "尊敬的 {name}：",
+      paragraphs: [
+        "感谢你一直以来的支持与信任。因为工作相识，也因为一次次真诚往来，让这份关系有了更温暖的意义。",
+        "婚礼这一天，我们希望把人生里的重要喜讯，也郑重分享给你。",
+        "诚邀你莅临现场，与我们共同见证这份承诺与新的开始。",
+      ],
+      signature: "高建 & 齐超儒 敬邀",
+    },
+    parentFriend: {
+      stamp: "Guest",
+      title: "亲爱的 {name}：",
+      paragraphs: [
+        "谢谢你一直以来对家人的照顾、支持与关心。长辈和朋友们的祝福，让这场婚礼多了一份踏实的温度。",
+        "两个年轻人即将开启新的生活，我们也想把这份喜悦真诚地分享给你。",
+        "诚邀你来到现场，与我们一起见证这一日的鲜花、晚风与约定。",
+      ],
+      signature: "高建 & 齐超儒 敬邀",
+    },
+    fallback: {
+      stamp: "Witness",
+      title: "亲爱的 {name}：",
+      paragraphs: [
+        "谢谢你一直以来的陪伴与支持。那些一起笑过、聊过、走过的日子，已经悄悄变成我们故事里很重要的一部分。",
+        "因为在我们的人生旅程里，你曾留下属于你的那一圈涟漪。",
+        "所以今天，我们想邀请你继续见证下一章节。",
+      ],
+      signature: "新郎 & 新娘 ♡",
+    },
+  };
+
   const $ = (selector, scope = document) => scope.querySelector(selector);
   const $$ = (selector, scope = document) => Array.from(scope.querySelectorAll(selector));
+
+  const normalizeGuestName = (name) =>
+    String(name || "")
+      .replace(/[（(].*?[）)]/g, "")
+      .replace(/\s+/g, "")
+      .toLowerCase();
+
+  const guestTypeByName = Object.entries(guestGroups).reduce((map, [type, names]) => {
+    names.forEach((name) => {
+      map.set(normalizeGuestName(name), type);
+    });
+    return map;
+  }, new Map());
+
+  const getLetterTemplate = (name) => {
+    const type = guestTypeByName.get(normalizeGuestName(name));
+    return letterTemplates[type] || letterTemplates.fallback;
+  };
+
+  const renderPersonalLetter = (name) => {
+    const value = name.trim() || inviteData.guestName;
+    const template = getLetterTemplate(value);
+    const stamp = $("[data-letter-stamp]");
+    const greeting = $("[data-letter-greeting]");
+    const copy = $("[data-letter-copy]");
+    const signature = $("[data-letter-signature]");
+
+    if (stamp) stamp.textContent = template.stamp;
+    if (greeting) greeting.textContent = template.title.replace("{name}", value);
+    if (copy) {
+      copy.replaceChildren(
+        ...template.paragraphs.map((paragraph) => {
+          const node = document.createElement("p");
+          node.textContent = paragraph;
+          return node;
+        })
+      );
+    }
+    if (signature) signature.textContent = template.signature;
+  };
 
   const setGuestName = (name, options = {}) => {
     const { fallback = inviteData.guestName, sourceInput = null, syncInputs = true } = options;
     const value = name.trim() || fallback;
+    renderPersonalLetter(value);
     $$("[data-guest-name]").forEach((node) => {
       node.textContent = value;
     });

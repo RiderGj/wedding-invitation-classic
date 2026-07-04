@@ -83,12 +83,14 @@
         <div class="scene-inner letter-layout">
           <p class="eyebrow">Personal Letter</p>
           <article class="paper-letter">
-            <span class="stamp">Witness</span>
-            <h2>亲爱的 <span data-guest-name>张三</span>：</h2>
-            <p>谢谢你一直以来的陪伴与支持。那些一起笑过、聊过、走过的日子，已经悄悄变成我们故事里很重要的一部分。</p>
-            <p>因为在我们的人生旅程里，你曾留下属于你的那一圈涟漪。</p>
-            <p>所以今天，我们想邀请你继续见证下一章节。</p>
-            <p class="signature">新郎 &amp; 新娘 ♡</p>
+            <span class="stamp" data-letter-stamp>Witness</span>
+            <h2 data-letter-greeting>亲爱的 <span data-guest-name>亲友</span>：</h2>
+            <div class="letter-copy" data-letter-copy>
+              <p>谢谢你一直以来的陪伴与支持。那些一起笑过、聊过、走过的日子，已经悄悄变成我们故事里很重要的一部分。</p>
+              <p>因为在我们的人生旅程里，你曾留下属于你的那一圈涟漪。</p>
+              <p>所以今天，我们想邀请你继续见证下一章节。</p>
+            </div>
+            <p class="signature" data-letter-signature>新郎 &amp; 新娘 ♡</p>
           </article>
           <button class="primary-button ripple-target" type="button" data-next="#hall-01">进入放映厅</button>
         </div>
@@ -148,7 +150,7 @@
               </div>
             </div>
           </div>
-          <button class="primary-button ripple-target" type="button" data-next="#mission">领取见证任务</button>
+          <button class="primary-button projector-mission-button ripple-target" type="button" data-next="#mission">领取见证任务</button>
         </article>
       </section>
 
