@@ -338,6 +338,12 @@
     target.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+  const redirectRemovedClassicAnchors = () => {
+    if (document.body.dataset.mode !== "classic" || window.location.hash !== "#rsvp") return;
+    history.replaceState(null, "", "#ending");
+    window.setTimeout(() => scrollToTarget("#ending"), 0);
+  };
+
   const bindRipple = () => {
     document.addEventListener("click", (event) => {
       const target = event.target.closest(".ripple-target");
@@ -405,6 +411,8 @@
     const projector = $("[data-projector]");
     if (!projector) return;
 
+    const windowEl = $(".projector-window", projector);
+    const track = $("[data-projector-track]", projector);
     const frames = $$("[data-projector-frame]", projector);
     const slides = frames
       .filter((frame) => frame.getAttribute("aria-hidden") !== "true")
@@ -414,6 +422,16 @@
 
     let activeIndex = 0;
     let timer = null;
+    let position = 0;
+    let loopWidth = 0;
+    let autoFrame = null;
+    let lastFrameTime = 0;
+    let resumeTimer = null;
+    let pointerId = null;
+    let dragStartX = 0;
+    let dragStartPosition = 0;
+    let hasDragged = false;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     const setActiveSlide = (index) => {
       activeIndex = (index + slides.length) % slides.length;
@@ -423,15 +441,61 @@
       });
     };
 
+    const normalizePosition = (value) => {
+      if (!loopWidth) return value;
+      let normalized = value % loopWidth;
+      if (normalized > 0) normalized -= loopWidth;
+      return normalized;
+    };
+
+    const renderTrack = () => {
+      if (!track) return;
+      track.style.transform = `translate3d(${position}px, 0, 0)`;
+    };
+
+    const updateLoopWidth = () => {
+      if (!track) return;
+      const firstFrame = frames.find((frame) => frame.getAttribute("aria-hidden") !== "true");
+      const firstDuplicate = frames.find((frame) => frame.getAttribute("aria-hidden") === "true");
+      loopWidth = firstFrame && firstDuplicate ? firstDuplicate.offsetLeft - firstFrame.offsetLeft : track.scrollWidth / 2;
+      position = normalizePosition(position || -loopWidth);
+      renderTrack();
+    };
+
+    const runAutoScroll = (timestamp) => {
+      if (!lastFrameTime) lastFrameTime = timestamp;
+      const elapsed = timestamp - lastFrameTime;
+      lastFrameTime = timestamp;
+      const pixelsPerMs = loopWidth ? loopWidth / 40000 : 0;
+      position = normalizePosition(position + elapsed * pixelsPerMs);
+      renderTrack();
+      autoFrame = window.requestAnimationFrame(runAutoScroll);
+    };
+
     const start = () => {
-      if (timer || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      window.clearTimeout(resumeTimer);
+      if (!autoFrame && track && !reduceMotion.matches) {
+        lastFrameTime = 0;
+        autoFrame = window.requestAnimationFrame(runAutoScroll);
+      }
+      if (timer || reduceMotion.matches) return;
       timer = window.setInterval(() => setActiveSlide(activeIndex + 1), 3600);
     };
 
     const stop = () => {
+      window.clearTimeout(resumeTimer);
+      if (autoFrame) {
+        window.cancelAnimationFrame(autoFrame);
+        autoFrame = null;
+      }
       if (!timer) return;
       window.clearInterval(timer);
       timer = null;
+    };
+
+    const resumeSoon = () => {
+      window.clearTimeout(resumeTimer);
+      resumeTimer = window.setTimeout(start, 1200);
     };
 
     frames.forEach((frame) => {
@@ -440,14 +504,57 @@
       });
     });
 
-    projector.addEventListener("pointerenter", stop);
-    projector.addEventListener("pointerleave", start);
+    window.addEventListener("resize", updateLoopWidth);
+    windowEl?.addEventListener("pointerdown", (event) => {
+      if (event.button !== undefined && event.button !== 0) return;
+      pointerId = event.pointerId;
+      dragStartX = event.clientX;
+      dragStartPosition = position;
+      hasDragged = false;
+      stop();
+    });
+
+    windowEl?.addEventListener("pointermove", (event) => {
+      if (event.pointerId !== pointerId) return;
+      const deltaX = event.clientX - dragStartX;
+      if (Math.abs(deltaX) > 6 && !hasDragged) {
+        hasDragged = true;
+        projector.classList.add("is-dragging");
+        windowEl.setPointerCapture?.(pointerId);
+      }
+      position = normalizePosition(dragStartPosition + deltaX);
+      renderTrack();
+      if (hasDragged && event.cancelable) event.preventDefault();
+    });
+
+    const endDrag = (event) => {
+      if (event.pointerId !== pointerId) return;
+      pointerId = null;
+      projector.classList.remove("is-dragging");
+      windowEl.releasePointerCapture?.(event.pointerId);
+      resumeSoon();
+    };
+
+    windowEl?.addEventListener("pointerup", endDrag);
+    windowEl?.addEventListener("pointercancel", endDrag);
+    windowEl?.addEventListener(
+      "click",
+      (event) => {
+        if (!hasDragged) return;
+        event.preventDefault();
+        event.stopPropagation();
+        hasDragged = false;
+      },
+      true,
+    );
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) stop();
       else start();
     });
 
     setActiveSlide(0);
+    updateLoopWidth();
+    projector.setAttribute("data-projector-ready", "");
     start();
   };
 
@@ -512,16 +619,26 @@
     const image = $("[data-lightbox-image]", modal);
     const close = $(".lightbox-close", modal);
 
+    const openLightbox = (trigger) => {
+      title.textContent = trigger.getAttribute("data-lightbox") || "照片";
+      caption.textContent = trigger.getAttribute("data-caption") || "";
+      const src = trigger.getAttribute("data-lightbox-src") || "";
+      if (image) {
+        image.src = src;
+        image.alt = trigger.getAttribute("data-lightbox") || "照片";
+      }
+      modal.hidden = false;
+    };
+
     $$("[data-lightbox]").forEach((trigger) => {
       trigger.addEventListener("click", () => {
-        title.textContent = trigger.getAttribute("data-lightbox") || "照片";
-        caption.textContent = trigger.getAttribute("data-caption") || "";
-        const src = trigger.getAttribute("data-lightbox-src") || "";
-        if (image) {
-          image.src = src;
-          image.alt = trigger.getAttribute("data-lightbox") || "照片";
-        }
-        modal.hidden = false;
+        openLightbox(trigger);
+      });
+
+      trigger.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        openLightbox(trigger);
       });
     });
 
@@ -563,71 +680,69 @@
     const buttons = $$(".sound-button");
     if (!buttons.length) return;
 
-    let context = null;
-    let master = null;
-    let oscillators = [];
+    const audio = new Audio("./assets/如果我们不曾相遇-BGM.mp3");
+    audio.loop = true;
+    audio.preload = "auto";
+    audio.volume = 0.72;
+    let isPlaying = false;
+    let shouldPlay = true;
 
-    const stop = async () => {
+    const setButtonState = (pressed) => {
       buttons.forEach((button) => {
-        button.setAttribute("aria-pressed", "false");
-        button.setAttribute("aria-label", "开启音乐");
+        button.setAttribute("aria-pressed", String(pressed));
+        button.setAttribute("aria-label", pressed ? "关闭音乐" : "开启音乐");
       });
+    };
 
-      oscillators.forEach((oscillator) => {
-        try {
-          oscillator.stop();
-        } catch {
-          /* already stopped */
-        }
-      });
-      oscillators = [];
+    const stop = () => {
+      shouldPlay = false;
+      audio.pause();
+      isPlaying = false;
+      setButtonState(false);
+    };
 
-      if (context) {
-        await context.close();
-        context = null;
-        master = null;
-      }
+    const removeDefaultStartListeners = () => {
+      document.removeEventListener("pointerdown", startAfterGesture);
+      document.removeEventListener("keydown", startAfterGesture);
+      document.removeEventListener("touchstart", startAfterGesture);
     };
 
     const start = async () => {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      if (!AudioContext) return;
+      shouldPlay = true;
+      try {
+        await audio.play();
+        isPlaying = true;
+        setButtonState(true);
+        removeDefaultStartListeners();
+      } catch {
+        isPlaying = false;
+        setButtonState(false);
+      }
+    };
 
-      context = new AudioContext();
-      master = context.createGain();
-      master.gain.value = 0.018;
-      master.connect(context.destination);
-
-      [261.63, 392, 523.25].forEach((frequency, index) => {
-        const oscillator = context.createOscillator();
-        const gain = context.createGain();
-        oscillator.type = index === 1 ? "triangle" : "sine";
-        oscillator.frequency.value = frequency;
-        gain.gain.value = index === 1 ? 0.18 : 0.12;
-        oscillator.connect(gain);
-        gain.connect(master);
-        oscillator.start();
-        oscillators.push(oscillator);
-      });
-
-      buttons.forEach((button) => {
-        button.setAttribute("aria-pressed", "true");
-        button.setAttribute("aria-label", "关闭音乐");
-      });
+    const startAfterGesture = () => {
+      if (!shouldPlay || isPlaying) return;
+      start();
     };
 
     buttons.forEach((button) => {
       button.addEventListener("click", () => {
-        if (context) {
+        if (isPlaying) {
           stop();
           return;
         }
         start();
       });
     });
+
+    document.addEventListener("pointerdown", startAfterGesture, { passive: true });
+    document.addEventListener("keydown", startAfterGesture);
+    document.addEventListener("touchstart", startAfterGesture, { passive: true });
+    start();
   };
 
   applyInviteData();
+  redirectRemovedClassicAnchors();
   bindRipple();
   bindNavigation();
   bindNames();

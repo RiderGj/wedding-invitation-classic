@@ -24,10 +24,11 @@ includes('class="cover-meta"><time data-field="date">2026.08.22</time><span>上�
 includes('aria-label="新郎高建，新娘齐超儒"');
 includes("<small>Groom</small><b>高建</b>");
 includes("<small>Bride</small><b>齐超儒</b>");
-assert.ok(!html.includes('button class="cover-photo-frame'), "Expected cover photo not to be clickable");
+assert.ok(!html.includes('button class="cover-photo-frame'), "Expected cover photo to stay as a figure");
 assert.ok(!html.includes('class="scroll-hint"'), "Expected clipped scroll hint to be removed");
-assert.ok(!html.includes('data-lightbox-src="./assets/optimized/封面-large.jpg"'), "Expected cover photo to be static");
-assert.ok(!html.includes("高建 &amp; 齐超儒的婚礼邀请"), "Expected cover subtitle to use bride/groom labels");
+includes('data-lightbox-src="./assets/optimized/封面-large.jpg"');
+const coverSubtitle = between('class="cover-subtitle"', "</p>");
+assert.ok(!coverSubtitle.includes("高建 &amp; 齐超儒的婚礼邀请"), "Expected cover subtitle to use bride/groom labels");
 assert.ok(!html.includes("新郎：高建　新娘：齐超儒"), "Expected cover subtitle to avoid plain bride/groom sentence");
 includes("上海花园饭店 · 百花厅");
 includes("上海市黄浦区茂名南路58号");
@@ -61,6 +62,8 @@ includes('class="detail-timeline"');
 includes("婚礼倒计时");
 includes('src="./assets/optimized/新郎小时候-avatar.jpg"');
 includes('src="./assets/optimized/新娘小时候-avatar.jpg"');
+includes('data-lightbox="小时候的高建"');
+includes('data-lightbox="小时候的齐超儒"');
 includes("<span data-countdown-days>--</span>");
 const coupleBadges = between('class="couple-badges"', 'class="ticket-grid invitation-details invitation-details-refined"');
 assert.ok(!coupleBadges.includes("酷男-display.jpg"), "Expected groom badge to use childhood photo");
@@ -77,11 +80,13 @@ assert.ok(!html.includes("Garden Wedding"), "Expected ticket side rail to be rem
 assert.ok(!html.includes("谨以一纸花笺"), "Expected invitation copy to be removed");
 assert.ok(!html.includes('class="invitation-signature"'), "Expected signature block to be removed");
 assert.ok(!html.includes('data-next="#rsvp"'), "Expected ticket RSVP button to be removed");
-includes("Welcome to our wedding");
-includes('class="rsvp-kicker"');
+assert.ok(!html.includes('href="#rsvp"'), "Expected RSVP nav link to be removed");
+assert.ok(!html.includes('id="rsvp"'), "Expected RSVP page to be removed");
+assert.ok(!html.includes('data-rsvp-form'), "Expected RSVP form to be removed");
 includes("See You There");
 includes('class="cover-photo-frame ending-photo-frame photo-filled"');
 includes('src="./assets/optimized/双人结尾-display.jpg"');
+includes('data-lightbox="高建与齐超儒"');
 
 assert.ok(!html.includes('id="letter"'), "Expected letter page to be removed");
 assert.ok(!html.includes('href="#letter"'), "Expected no letter nav link");
@@ -100,6 +105,6 @@ assert.ok(!html.includes('id="hall-05"'), "Expected hall-05 to be removed");
 assert.ok(!html.includes('href="#hall-05"'), "Expected hall-05 nav link to be removed");
 assert.ok(!html.includes('data-next="#hall-05"'), "Expected no navigation to hall-05");
 assert.equal((html.match(/class="carousel-track"/g) || []).length, 0);
-assert.equal((html.match(/data-lightbox-src=/g) || []).length, 14);
+assert.equal((html.match(/data-lightbox-src=/g) || []).length, 18);
 
 console.log("classic static checks passed");

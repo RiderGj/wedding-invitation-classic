@@ -4,6 +4,19 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>高建 &amp; 齐超儒 · Wedding Experience</title>
+    <meta name="description" content="诚邀您参加高建与齐超儒的婚礼：2026年8月22日，上海花园饭店。一起见证属于我们的旅程。" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:title" content="高建 &amp; 齐超儒的婚礼邀请" />
+    <meta property="og:description" content="诚邀您参加我们的婚礼：2026年8月22日，上海花园饭店。一起见证属于我们的旅程。" />
+    <meta property="og:image" content="./assets/og-classic.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="高建与齐超儒婚礼邀请首图" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="高建 &amp; 齐超儒的婚礼邀请" />
+    <meta name="twitter:description" content="2026年8月22日，上海花园饭店。诚邀您参加我们的婚礼。" />
+    <meta name="twitter:image" content="./assets/og-classic.jpg" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body class="invite-page classic-page" data-mode="classic">
@@ -16,7 +29,6 @@
       <a href="#welcome">首页</a>
       <a href="#hall-01">放映厅</a>
       <a href="#ticket">Wedding Ticket</a>
-      <a href="#rsvp">确认赴约</a>
     </nav>
 
     <main class="screen-stack">
@@ -30,7 +42,7 @@
             <span><small>Bride</small><b>齐超儒</b></span>
           </p>
           <p class="cover-invite-line">诚邀您参加我们的婚礼</p>
-          <figure class="cover-photo-frame photo-filled">
+          <figure class="cover-photo-frame photo-filled" role="button" tabindex="0" data-lightbox="封面婚纱照" data-caption="旅程从这一张照片开始。" data-lightbox-src="./assets/optimized/封面-large.jpg">
             <img src="./assets/optimized/封面-display.jpg" alt="封面婚纱照" width="933" height="1400" fetchpriority="high" />
           </figure>
           <div class="thin-rule"></div>
@@ -45,8 +57,8 @@
             <h2>爱的放映厅</h2>
           </header>
           <p class="story-copy">灯光暗下，胶片开始转动。那些酷酷的、明亮的、烟火里的瞬间，连成一段关于我们的短片。</p>
-          <div class="projector-gallery" aria-label="自动放映照片集">
-            <div class="projector-window projector-window-large" aria-label="连续播放胶片">
+          <div class="projector-gallery" aria-label="可自动播放并手动滑动的照片集">
+            <div class="projector-window projector-window-large" aria-label="连续播放胶片，可左右滑动">
               <div class="film-strip" data-projector-track>
                 <button class="film-frame photo-filled ripple-target is-active" type="button" data-projector-frame data-projector-index="0" data-lightbox="酷酷的他" data-caption="他站在那里，像故事刚刚开场。" data-lightbox-src="./assets/optimized/酷男-large.jpg">
                   <img src="./assets/optimized/酷男-display.jpg" alt="酷酷的新郎单人照" width="933" height="1400" decoding="async" />
@@ -106,12 +118,12 @@
                 <span>No. 20260822</span>
               </div>
               <div class="couple-badges" aria-label="新人">
-                <figure>
+                <figure role="button" tabindex="0" data-lightbox="小时候的高建" data-caption="故事里的男主角，从这里慢慢长大。" data-lightbox-src="./assets/optimized/新郎小时候-avatar.jpg">
                   <img src="./assets/optimized/新郎小时候-avatar.jpg" alt="" width="640" height="480" decoding="async" />
                   <figcaption>Groom<br />高建</figcaption>
                 </figure>
                 <span aria-hidden="true">♡</span>
-                <figure>
+                <figure role="button" tabindex="0" data-lightbox="小时候的齐超儒" data-caption="故事里的女主角，也把可爱一路带到了今天。" data-lightbox-src="./assets/optimized/新娘小时候-avatar.jpg">
                   <img src="./assets/optimized/新娘小时候-avatar.jpg" alt="" width="430" height="430" decoding="async" />
                   <figcaption>Bride<br />齐超儒</figcaption>
                 </figure>
@@ -157,31 +169,11 @@
         </div>
       </section>
 
-      <section class="scene rsvp-scene" id="rsvp">
-        <div class="scene-inner form-layout">
-          <p class="eyebrow">Welcome to our wedding</p>
-          <form class="rsvp-card" data-rsvp-form>
-            <p class="rsvp-kicker">[ 婚礼回执 ]</p>
-            <h2>你能来参加我们的婚礼吗？</h2>
-            <p class="rsvp-note">You are the best for us</p>
-            <div class="segmented" role="radiogroup" aria-label="是否出席">
-              <label><input type="radio" name="attendance" value="yes" checked /> <span>我会出席</span></label>
-              <label><input type="radio" name="attendance" value="no" /> <span>遗憾不能出席</span></label>
-            </div>
-            <label class="field-label">宾客姓名<input name="name" type="text" value="亲友" data-name-input /></label>
-            <label class="field-label">携伴人数<select name="companions"><option>仅自己</option><option>携伴 1 人</option><option>携伴 2 人</option></select></label>
-            <label class="field-label">祝福留言<textarea name="message" rows="4" placeholder="写下你对我们的祝福吧～"></textarea></label>
-            <button class="primary-button ripple-target" type="submit">提交 ♥</button>
-            <p class="form-result" data-rsvp-result hidden>谢谢你的回应。期待与你相见。</p>
-          </form>
-        </div>
-      </section>
-
       <section class="scene ending-scene water-scene" id="ending">
         <div class="scene-inner ending-inner">
           <p class="eyebrow">See You There</p>
           <h2>Every encounter creates a ripple.</h2>
-          <figure class="cover-photo-frame ending-photo-frame photo-filled" aria-label="高建与齐超儒婚纱照">
+          <figure class="cover-photo-frame ending-photo-frame photo-filled" aria-label="高建与齐超儒婚纱照" role="button" tabindex="0" data-lightbox="高建与齐超儒" data-caption="期待在婚礼当天，和你一起见证这一刻。" data-lightbox-src="./assets/optimized/双人结尾-display.jpg">
             <img src="./assets/optimized/双人结尾-display.jpg" alt="" width="933" height="1400" decoding="async" />
           </figure>
           <div class="thin-rule"></div>

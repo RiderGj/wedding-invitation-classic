@@ -515,7 +515,7 @@ a {
 
 .classic-page .cover-inner h1 {
   font-family: "Times New Roman", "Songti SC", "Noto Serif SC", "STSong", Georgia, serif;
-  font-size: clamp(2.7rem, 12.6vw, 4.2rem);
+  font-size: clamp(2.35rem, 10.4vw, 3.45rem);
   font-weight: 400;
   letter-spacing: 0;
   line-height: 0.95;
@@ -687,6 +687,10 @@ a {
   object-fit: cover;
 }
 
+[data-lightbox][role="button"] {
+  cursor: pointer;
+}
+
 .cover-photo-frame img {
   position: absolute;
   inset: 0;
@@ -749,6 +753,7 @@ a {
 }
 
 .classic-page .journey-button {
+  margin-bottom: 38px;
   border: 1px solid rgba(255, 248, 232, 0.32);
   background:
     linear-gradient(120deg, transparent 0 34%, rgba(255, 248, 232, 0.24) 42%, transparent 50%),
@@ -1069,6 +1074,21 @@ a {
   padding-inline: 28px;
   animation: filmProjector 40s linear infinite;
   will-change: transform;
+}
+
+[data-projector-ready] .film-strip {
+  animation: none;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+[data-projector-ready].is-dragging .film-strip {
+  cursor: grabbing;
+}
+
+[data-projector-ready].is-dragging .film-frame {
+  pointer-events: none;
 }
 
 .projector-gallery:hover .film-strip {
@@ -3161,6 +3181,24 @@ a {
   }
 }
 
+@media (max-width: 520px) {
+  .classic-page .cover-inner {
+    gap: 9px;
+  }
+
+  .classic-page .cover-inner h1 {
+    font-size: clamp(2.15rem, 9.8vw, 3rem);
+  }
+
+  .classic-page .cover-photo-frame {
+    width: min(67vw, 255px);
+  }
+
+  .classic-page .journey-button {
+    margin-bottom: 58px;
+  }
+}
+
 @media (max-width: 380px) {
   .scene {
     padding: 10px;
@@ -3297,6 +3335,86 @@ a {
 
   .ending-details {
     padding-block: 8px;
+  }
+}
+
+@media (max-height: 740px) {
+  .classic-page .cover-scene {
+    place-items: start center;
+  }
+
+  .classic-page .cover-inner {
+    min-height: auto;
+    gap: 8px;
+    padding: 30px 22px max(22px, env(safe-area-inset-bottom));
+  }
+
+  .classic-page .cover-inner .eyebrow {
+    margin-bottom: 2px;
+    font-size: 0.68rem;
+  }
+
+  .classic-page .cover-inner h1 {
+    font-size: clamp(2.2rem, 10svh, 3.1rem);
+  }
+
+  .classic-page .cover-subtitle {
+    padding-block: 6px;
+  }
+
+  .cover-invite-line {
+    font-size: 0.86rem;
+  }
+
+  .classic-page .cover-photo-frame {
+    width: min(62vw, 34svh, 220px);
+    margin-block: 0;
+  }
+
+  .cover-meta {
+    margin-bottom: 2px;
+    font-size: 0.88rem;
+  }
+
+  .classic-page .journey-button {
+    min-height: 42px;
+    margin-bottom: 70px;
+  }
+}
+
+@media (max-height: 620px) {
+  .classic-page .cover-inner {
+    gap: 6px;
+    padding: 20px 20px max(14px, env(safe-area-inset-bottom));
+  }
+
+  .classic-page .cover-inner h1 {
+    font-size: clamp(2rem, 8.5svh, 2.6rem);
+  }
+
+  .classic-page .cover-subtitle {
+    padding-block: 4px;
+  }
+
+  .classic-page .cover-subtitle small {
+    font-size: 0.6rem;
+  }
+
+  .classic-page .cover-subtitle b {
+    font-size: 1rem;
+  }
+
+  .classic-page .cover-photo-frame {
+    width: min(58vw, 28svh, 180px);
+  }
+
+  .cover-meta {
+    font-size: 0.82rem;
+  }
+
+  .classic-page .journey-button {
+    min-height: 40px;
+    margin-bottom: 42px;
   }
 }
 
