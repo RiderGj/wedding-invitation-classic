@@ -224,6 +224,7 @@ a {
 }
 
 .witness-page {
+  --witness-paper-texture: url("./assets/背景1.jpg");
   --ink: #53362f;
   --ink-deep: #2f2420;
   --blue: #9b554e;
@@ -1013,6 +1014,41 @@ a {
   box-shadow: 0 22px 50px rgba(44, 33, 27, 0.28);
 }
 
+.classic-page .projector-panel {
+  min-height: calc(100svh - 32px);
+  justify-content: center;
+  gap: 8px;
+  padding-top: clamp(18px, 3.8svh, 28px);
+  padding-bottom: clamp(18px, 3.8svh, 28px);
+}
+
+.classic-page .projector-panel .scene-heading {
+  margin-bottom: 2px;
+}
+
+.classic-page .projector-panel .scene-heading h2 {
+  font-size: clamp(1.62rem, 4.8vw, 2rem);
+}
+
+.classic-page .projector-panel .story-copy {
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.classic-page .projector-panel .projector-window {
+  padding-block: clamp(14px, 2.2svh, 18px);
+}
+
+.classic-page .projector-panel .film-frame {
+  width: min(76vw, 320px);
+  height: clamp(330px, 51svh, 410px);
+}
+
+.classic-page .projector-panel .film-frame-wide {
+  width: min(96vw, 430px);
+}
+
 .projector-theater .scene-heading h2,
 .projector-theater .story-copy {
   color: #fff8ec;
@@ -1501,7 +1537,7 @@ a {
   position: relative;
   grid-template-columns: 1fr;
   gap: 0;
-  padding: clamp(10px, 1.8svh, 18px) 0 0;
+  padding: clamp(10px, 1.8svh, 18px) clamp(10px, 3vw, 18px) 0;
   border-top: 1px solid rgba(74, 55, 44, 0.12);
   border-bottom: 0;
 }
@@ -1527,8 +1563,8 @@ a {
 .invitation-details div,
 .invitation-details section {
   display: grid;
-  grid-template-columns: 82px 1fr;
-  gap: 12px;
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: 10px;
   padding: clamp(6px, 1.15svh, 10px) 0;
   align-items: baseline;
 }
@@ -1603,8 +1639,9 @@ a {
 .detail-timeline li {
   position: relative;
   display: grid;
-  grid-template-columns: 76px minmax(0, 1fr);
-  gap: 14px;
+  grid-template-columns: 66px auto;
+  gap: 12px;
+  justify-content: start;
   align-items: center;
   min-height: 28px;
   padding-left: 22px;
@@ -1700,7 +1737,8 @@ a {
 
 .invitation-closing p {
   margin: 0 auto 8px;
-  max-width: 19em;
+  width: min(100%, 28em);
+  max-width: none;
   color: rgba(74, 55, 44, 0.74);
   font-family: "Kaiti SC", "STKaiti", "Songti SC", serif;
   font-size: 0.86rem;
@@ -2126,6 +2164,7 @@ a {
     linear-gradient(90deg, rgba(116, 132, 111, 0.16), transparent 28%, transparent 72%, rgba(155, 85, 78, 0.15)),
     repeating-linear-gradient(92deg, rgba(83, 54, 47, 0.026) 0 1px, transparent 1px 11px),
     repeating-linear-gradient(4deg, rgba(116, 132, 111, 0.026) 0 1px, transparent 1px 18px),
+    var(--witness-paper-texture) center / cover no-repeat,
     linear-gradient(180deg, #fffaf2 0%, #e7eadf 54%, #efd7d1 100%);
 }
 
@@ -2260,16 +2299,44 @@ a {
   margin-top: 0;
   min-height: 242px;
   padding: 34px 22px 76px;
+  appearance: none;
+  cursor: pointer;
+  font: inherit;
   border-color: rgba(83, 54, 47, 0.16);
   background:
     linear-gradient(152deg, transparent 49%, rgba(83, 54, 47, 0.1) 50%, transparent 51%),
     linear-gradient(28deg, transparent 49%, rgba(83, 54, 47, 0.1) 50%, transparent 51%),
     linear-gradient(180deg, rgba(255, 248, 237, 0.2), transparent 48%),
+    var(--witness-paper-texture) center / cover no-repeat,
     linear-gradient(180deg, #e5c8bd, #d6b6aa 58%, #cfaea4);
   box-shadow:
     0 24px 48px rgba(72, 47, 38, 0.18),
     inset 0 0 0 1px rgba(255, 250, 241, 0.4),
     inset 0 -24px 44px rgba(83, 54, 47, 0.07);
+  transition: transform 240ms ease, box-shadow 240ms ease, filter 240ms ease;
+}
+
+.mysterious-letter-card:hover,
+.mysterious-letter-card:focus-visible {
+  filter: saturate(1.04);
+  transform: translateY(-2px);
+  box-shadow:
+    0 30px 54px rgba(72, 47, 38, 0.21),
+    inset 0 0 0 1px rgba(255, 250, 241, 0.44),
+    inset 0 -24px 44px rgba(83, 54, 47, 0.08);
+}
+
+.mysterious-letter-card:focus-visible {
+  outline: 3px solid rgba(155, 85, 78, 0.18);
+  outline-offset: 4px;
+}
+
+.mysterious-letter-card.is-unsealing {
+  animation: envelopeWiggle 520ms ease both;
+}
+
+.mysterious-letter-card.is-unsealing .ornate-seal {
+  animation: sealWiggle 520ms ease both;
 }
 
 .mysterious-letter-card::before,
@@ -2415,20 +2482,29 @@ a {
 }
 
 .ornate-seal::before {
-  content: "囍";
+  content: "";
   position: absolute;
   inset: 13px;
   display: grid;
   place-items: center;
   border: 1px solid rgba(255, 232, 214, 0.52);
   border-radius: 50%;
-  color: rgba(255, 232, 214, 0.86);
-  font-family: "Kaiti SC", "STKaiti", "Songti SC", serif;
-  font-size: 1.42rem;
-  line-height: 1;
-  text-shadow:
-    0 1px 0 rgba(90, 28, 27, 0.28),
-    0 -1px 0 rgba(255, 238, 221, 0.2);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 238, 221, 0.2),
+    inset 0 -1px 0 rgba(90, 28, 27, 0.18);
+}
+
+.rose-seal-icon {
+  position: relative;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  display: block;
+  transform: rotate(5deg);
+  filter:
+    drop-shadow(0 1px 0 rgba(255, 238, 221, 0.18))
+    drop-shadow(0 -1px 0 rgba(90, 28, 27, 0.22));
+  opacity: 0.95;
 }
 
 .ornate-seal::after {
@@ -2455,6 +2531,7 @@ a {
     linear-gradient(180deg, rgba(255, 251, 244, 0.82), rgba(239, 224, 207, 0.78)),
     linear-gradient(90deg, rgba(116, 132, 111, 0.12), transparent 30%, transparent 70%, rgba(155, 85, 78, 0.12)),
     repeating-linear-gradient(92deg, rgba(83, 54, 47, 0.024) 0 1px, transparent 1px 11px),
+    var(--witness-paper-texture) center / cover no-repeat,
     linear-gradient(180deg, #fffaf2, #efe0d0);
 }
 
@@ -2463,6 +2540,7 @@ a {
     linear-gradient(180deg, rgba(255, 251, 244, 0.82), rgba(239, 224, 207, 0.78)),
     linear-gradient(90deg, rgba(116, 132, 111, 0.12), transparent 30%, transparent 70%, rgba(155, 85, 78, 0.12)),
     repeating-linear-gradient(92deg, rgba(83, 54, 47, 0.024) 0 1px, transparent 1px 11px),
+    var(--witness-paper-texture) center / cover no-repeat,
     linear-gradient(180deg, #fffaf2, #efe0d0);
 }
 
@@ -2502,16 +2580,19 @@ a {
   min-height: 190px;
   margin: 0 0 28px;
   padding: 0;
-  border-color: rgba(83, 54, 47, 0.16);
+  border-color: rgba(112, 67, 56, 0.24);
   background:
-    linear-gradient(152deg, transparent 49%, rgba(83, 54, 47, 0.1) 50%, transparent 51%),
-    linear-gradient(28deg, transparent 49%, rgba(83, 54, 47, 0.1) 50%, transparent 51%),
-    linear-gradient(180deg, rgba(255, 248, 237, 0.2), transparent 48%),
-    linear-gradient(180deg, #e5c8bd, #d6b6aa 58%, #cfaea4);
+    radial-gradient(circle at 50% 52%, rgba(255, 245, 231, 0.34), transparent 22%),
+    linear-gradient(152deg, transparent 49.4%, rgba(112, 67, 56, 0.16) 50%, transparent 50.8%),
+    linear-gradient(28deg, transparent 49.4%, rgba(112, 67, 56, 0.14) 50%, transparent 50.8%),
+    linear-gradient(180deg, rgba(255, 248, 237, 0.5), transparent 44%),
+    var(--witness-paper-texture) center / cover no-repeat,
+    linear-gradient(180deg, #ead3c1 0%, #d7b49e 58%, #c89c86 100%);
   box-shadow:
-    0 24px 48px rgba(72, 47, 38, 0.16),
-    inset 0 0 0 1px rgba(255, 250, 241, 0.4),
-    inset 0 -24px 44px rgba(83, 54, 47, 0.07);
+    0 26px 48px rgba(72, 47, 38, 0.18),
+    0 8px 18px rgba(72, 47, 38, 0.08),
+    inset 0 0 0 1px rgba(255, 250, 241, 0.48),
+    inset 0 -26px 48px rgba(83, 54, 47, 0.08);
 }
 
 .witness-page .denied-layout.has-passphrase {
@@ -2566,25 +2647,43 @@ a {
 .witness-page .denied-layout .sealed-envelope::before {
   content: "";
   position: absolute;
-  inset: 13px;
-  border: 1px solid rgba(255, 250, 241, 0.28);
+  inset: 12px;
+  border: 1px solid rgba(255, 250, 241, 0.32);
   border-radius: 5px;
   pointer-events: none;
+  box-shadow:
+    inset 0 0 0 1px rgba(112, 67, 56, 0.05),
+    inset 0 -28px 44px rgba(112, 67, 56, 0.06);
+}
+
+.witness-page .denied-layout .sealed-envelope::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 250, 241, 0.22), transparent 28%),
+    linear-gradient(90deg, rgba(255, 250, 241, 0.16), transparent 18%, transparent 82%, rgba(112, 67, 56, 0.08));
+  mix-blend-mode: soft-light;
 }
 
 .witness-page .denied-layout .sealed-envelope span {
-  width: 64px;
-  height: 64px;
-  border-color: rgba(108, 42, 39, 0.18);
+  position: relative;
+  z-index: 2;
+  width: 66px;
+  height: 66px;
+  border-color: rgba(108, 42, 39, 0.2);
   background:
-    radial-gradient(circle at 36% 28%, rgba(255, 230, 213, 0.34), transparent 22%),
-    radial-gradient(circle at 50% 50%, #b75d57 0 34%, #8f453f 68%, #70352f 100%);
+    radial-gradient(circle at 35% 24%, rgba(255, 230, 213, 0.42), transparent 20%),
+    radial-gradient(circle at 50% 48%, #bc6660 0 30%, #994a45 64%, #71332f 100%);
   color: #fff8ec;
   font-family: "Times New Roman", Georgia, serif;
   box-shadow:
-    0 12px 24px rgba(72, 47, 38, 0.24),
+    0 14px 26px rgba(72, 47, 38, 0.28),
+    0 0 0 6px rgba(112, 67, 56, 0.06),
     inset 0 1px 0 rgba(255, 236, 220, 0.34),
-    inset 0 -8px 14px rgba(80, 26, 25, 0.18);
+    inset 0 -9px 15px rgba(80, 26, 25, 0.2);
 }
 
 .witness-page .denied-layout h2 {
@@ -2652,8 +2751,8 @@ a {
   border-radius: 8px;
   background:
     radial-gradient(circle at 14% 12%, rgba(255, 255, 255, 0.52), transparent 28%),
-    repeating-linear-gradient(0deg, transparent 0 22px, rgba(83, 54, 47, 0.028) 23px 24px),
-    linear-gradient(180deg, rgba(255, 250, 241, 0.96), rgba(245, 232, 216, 0.96));
+    repeating-linear-gradient(0deg, transparent 0 22px, rgba(83, 54, 47, 0.018) 23px 24px),
+    linear-gradient(180deg, rgba(255, 250, 241, 0.98), rgba(246, 232, 217, 0.98));
   box-shadow:
     0 18px 36px rgba(72, 47, 38, 0.14),
     inset 0 0 0 1px rgba(255, 250, 241, 0.56);
@@ -2747,6 +2846,7 @@ a {
     linear-gradient(180deg, rgba(255, 251, 244, 0.82), rgba(239, 224, 207, 0.78)),
     linear-gradient(90deg, rgba(116, 132, 111, 0.12), transparent 30%, transparent 70%, rgba(155, 85, 78, 0.12)),
     repeating-linear-gradient(92deg, rgba(83, 54, 47, 0.024) 0 1px, transparent 1px 11px),
+    var(--witness-paper-texture) center / cover no-repeat,
     linear-gradient(180deg, #fffaf2, #efe0d0);
 }
 
@@ -2769,8 +2869,8 @@ a {
   background:
     radial-gradient(circle at 14% 12%, rgba(255, 255, 255, 0.58), transparent 23%),
     radial-gradient(circle at 88% 84%, rgba(116, 132, 111, 0.12), transparent 24%),
-    repeating-linear-gradient(0deg, transparent 0 27px, rgba(83, 54, 47, 0.03) 28px 29px),
-    linear-gradient(180deg, rgba(255, 250, 241, 0.96), rgba(247, 237, 224, 0.98));
+    repeating-linear-gradient(0deg, transparent 0 27px, rgba(83, 54, 47, 0.014) 28px 29px),
+    linear-gradient(180deg, rgba(255, 250, 241, 0.985), rgba(247, 237, 224, 0.995));
   box-shadow:
     0 24px 50px rgba(72, 47, 38, 0.16),
     inset 0 0 0 1px rgba(255, 250, 241, 0.58);
@@ -2811,7 +2911,7 @@ a {
 
 .witness-page .letter-copy,
 .witness-page .paper-letter p {
-  color: rgba(83, 54, 47, 0.84);
+  color: rgba(57, 42, 36, 0.92);
 }
 
 .witness-page .paper-letter p {
@@ -2928,6 +3028,7 @@ a {
     radial-gradient(circle at 12% 10%, rgba(255, 255, 255, 0.52), transparent 22%),
     radial-gradient(circle at 88% 86%, rgba(116, 132, 111, 0.12), transparent 24%),
     repeating-linear-gradient(0deg, transparent 0 24px, rgba(83, 54, 47, 0.03) 25px 26px),
+    var(--witness-paper-texture) center / cover no-repeat,
     linear-gradient(180deg, rgba(255, 250, 241, 0.95), rgba(247, 237, 224, 0.98));
   box-shadow:
     0 22px 46px rgba(72, 47, 38, 0.15),
@@ -3279,6 +3380,7 @@ a {
     linear-gradient(180deg, rgba(255, 251, 244, 0.82), rgba(239, 224, 207, 0.78)),
     linear-gradient(90deg, rgba(116, 132, 111, 0.12), transparent 30%, transparent 70%, rgba(155, 85, 78, 0.12)),
     repeating-linear-gradient(92deg, rgba(83, 54, 47, 0.024) 0 1px, transparent 1px 11px),
+    var(--witness-paper-texture) center / cover no-repeat,
     linear-gradient(180deg, #fffaf2, #efe0d0);
 }
 
@@ -3299,8 +3401,8 @@ a {
   background:
     radial-gradient(circle at 12% 10%, rgba(255, 255, 255, 0.56), transparent 22%),
     radial-gradient(circle at 88% 86%, rgba(116, 132, 111, 0.12), transparent 24%),
-    repeating-linear-gradient(0deg, transparent 0 24px, rgba(83, 54, 47, 0.03) 25px 26px),
-    linear-gradient(180deg, rgba(255, 250, 241, 0.96), rgba(247, 237, 224, 0.98));
+    repeating-linear-gradient(0deg, transparent 0 24px, rgba(83, 54, 47, 0.015) 25px 26px),
+    linear-gradient(180deg, rgba(255, 250, 241, 0.98), rgba(247, 237, 224, 0.99));
   box-shadow:
     0 24px 50px rgba(72, 47, 38, 0.16),
     inset 0 0 0 1px rgba(255, 250, 241, 0.58);
@@ -3591,6 +3693,7 @@ a {
     linear-gradient(180deg, rgba(255, 251, 244, 0.82), rgba(239, 224, 207, 0.78)),
     linear-gradient(90deg, rgba(116, 132, 111, 0.12), transparent 30%, transparent 70%, rgba(155, 85, 78, 0.12)),
     repeating-linear-gradient(92deg, rgba(83, 54, 47, 0.024) 0 1px, transparent 1px 11px),
+    var(--witness-paper-texture) center / cover no-repeat,
     linear-gradient(180deg, #fffaf2, #efe0d0);
 }
 
@@ -3606,8 +3709,8 @@ a {
   background:
     radial-gradient(circle at 12% 10%, rgba(255, 255, 255, 0.56), transparent 22%),
     radial-gradient(circle at 88% 86%, rgba(116, 132, 111, 0.12), transparent 24%),
-    repeating-linear-gradient(0deg, transparent 0 24px, rgba(83, 54, 47, 0.03) 25px 26px),
-    linear-gradient(180deg, rgba(255, 250, 241, 0.96), rgba(247, 237, 224, 0.98));
+    repeating-linear-gradient(0deg, transparent 0 24px, rgba(83, 54, 47, 0.015) 25px 26px),
+    linear-gradient(180deg, rgba(255, 250, 241, 0.98), rgba(247, 237, 224, 0.99));
   box-shadow:
     0 24px 50px rgba(72, 47, 38, 0.16),
     inset 0 0 0 1px rgba(255, 250, 241, 0.58);
@@ -3775,7 +3878,9 @@ a {
 }
 
 .lightbox-card {
-  width: min(100%, 420px);
+  width: min(100%, 720px);
+  max-height: calc(100svh - 36px);
+  overflow: auto;
   padding: 16px;
   border-radius: var(--radius);
   background: rgba(247, 251, 255, 0.96);
@@ -3792,13 +3897,27 @@ a {
 }
 
 .photo-frame-large {
-  min-height: 420px;
+  width: 100%;
+  height: min(64svh, 580px);
+  min-height: 0;
   margin-bottom: 16px;
 }
 
-.photo-frame-large img {
+.lightbox .photo-frame-large img {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (orientation: landscape) and (max-height: 720px) {
+  .photo-frame-large {
+    height: min(62svh, 460px);
+  }
 }
 
 .lightbox-card h2 {
@@ -3950,6 +4069,41 @@ a {
 @keyframes sealPulse {
   50% {
     transform: translateX(-50%) scale(1.04);
+  }
+}
+
+@keyframes envelopeWiggle {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  18% {
+    transform: translateY(-2px) rotate(-1.2deg);
+  }
+  38% {
+    transform: translateY(1px) rotate(1deg);
+  }
+  58% {
+    transform: translateY(-1px) rotate(-0.7deg);
+  }
+  78% {
+    transform: translateY(0) rotate(0.35deg);
+  }
+}
+
+@keyframes sealWiggle {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) rotate(-4deg) scale(1);
+  }
+  26% {
+    transform: translate(-50%, -50%) rotate(-10deg) scale(1.04);
+  }
+  54% {
+    transform: translate(-50%, -50%) rotate(3deg) scale(0.98);
+  }
+  78% {
+    transform: translate(-50%, -50%) rotate(-6deg) scale(1.02);
   }
 }
 
@@ -4269,6 +4423,21 @@ a {
     padding: 24px 22px 22px;
   }
 
+  .classic-page .invitation-details {
+    padding-inline: 8px;
+  }
+
+  .classic-page .invitation-details div,
+  .classic-page .invitation-details section {
+    grid-template-columns: 86px minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .classic-page .detail-timeline li {
+    grid-template-columns: 58px auto;
+    gap: 10px;
+  }
+
   .couple-badges {
     gap: 16px;
     padding-inline: 8px;
@@ -4313,6 +4482,7 @@ a {
   }
 
   .invitation-closing p {
+    width: min(100%, 25em);
     font-size: 0.8rem;
     line-height: 1.55;
   }

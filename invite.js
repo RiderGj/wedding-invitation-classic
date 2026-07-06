@@ -656,6 +656,15 @@
     $$("[data-next]").forEach((button) => {
       button.addEventListener("click", () => {
         const target = button.getAttribute("data-next");
+        if (button.matches("[data-envelope-open]")) {
+          const envelope = $("[data-envelope-open].mysterious-letter-card");
+          envelope?.classList.remove("is-unsealing");
+          void envelope?.offsetWidth;
+          envelope?.classList.add("is-unsealing");
+          window.setTimeout(() => envelope?.classList.remove("is-unsealing"), 560);
+          window.setTimeout(() => scrollToTarget(target), 420);
+          return;
+        }
         button.classList.add("is-active");
         window.setTimeout(() => button.classList.remove("is-active"), 700);
         if (button.matches("[data-journey-start]")) {
@@ -744,7 +753,8 @@
       if (!lastFrameTime) lastFrameTime = timestamp;
       const elapsed = timestamp - lastFrameTime;
       lastFrameTime = timestamp;
-      const pixelsPerMs = loopWidth ? loopWidth / 40000 : 0;
+      const scrollDuration = Number(window.getComputedStyle(projector).getPropertyValue("--projector-scroll-duration")) || 40000;
+      const pixelsPerMs = loopWidth ? loopWidth / scrollDuration : 0;
       position = normalizePosition(position - elapsed * pixelsPerMs);
       renderTrack();
       autoFrame = window.requestAnimationFrame(runAutoScroll);
