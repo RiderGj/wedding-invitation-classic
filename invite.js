@@ -445,6 +445,7 @@
       unlockedWitnessScenes.add(selector);
     }
     target.hidden = false;
+    target.dispatchEvent(new CustomEvent("witness:scene-unlocked", { bubbles: true }));
     updateWitnessNavState();
     return target;
   };
@@ -735,7 +736,7 @@
       const firstFrame = frames.find((frame) => frame.getAttribute("aria-hidden") !== "true");
       const firstDuplicate = frames.find((frame) => frame.getAttribute("aria-hidden") === "true");
       loopWidth = firstFrame && firstDuplicate ? firstDuplicate.offsetLeft - firstFrame.offsetLeft : track.scrollWidth / 2;
-      position = normalizePosition(position || -loopWidth);
+      position = normalizePosition(position);
       renderTrack();
     };
 
@@ -744,7 +745,7 @@
       const elapsed = timestamp - lastFrameTime;
       lastFrameTime = timestamp;
       const pixelsPerMs = loopWidth ? loopWidth / 40000 : 0;
-      position = normalizePosition(position + elapsed * pixelsPerMs);
+      position = normalizePosition(position - elapsed * pixelsPerMs);
       renderTrack();
       autoFrame = window.requestAnimationFrame(runAutoScroll);
     };
@@ -827,6 +828,11 @@
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) stop();
       else start();
+    });
+    document.addEventListener("witness:scene-unlocked", (event) => {
+      if (!event.target.contains(projector)) return;
+      updateLoopWidth();
+      start();
     });
 
     setActiveSlide(0);
