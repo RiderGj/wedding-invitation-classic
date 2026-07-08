@@ -764,6 +764,13 @@ a {
   box-shadow: 0 12px 28px rgba(110, 48, 41, 0.2);
 }
 
+.classic-page .scene-next-button {
+  flex-shrink: 0;
+  min-height: 42px;
+  margin-top: clamp(18px, 3svh, 30px);
+  border: 1px solid rgba(255, 248, 232, 0.32);
+}
+
 .journey-button {
   isolation: isolate;
   min-width: 142px;
@@ -1324,8 +1331,15 @@ a {
 
 .classic-page .ticket-layout {
   width: min(100%, 380px);
-  min-height: calc(100svh - 32px);
+  height: 100%;
+  min-height: 0;
   justify-content: stretch;
+}
+
+.classic-page .ticket-scene {
+  height: 100svh;
+  min-height: 100svh;
+  overflow: hidden;
 }
 
 .classic-page .form-layout {
@@ -1563,7 +1577,7 @@ a {
 .invitation-details div,
 .invitation-details section {
   display: grid;
-  grid-template-columns: 92px minmax(0, 1fr);
+  grid-template-columns: 76px minmax(0, 1fr);
   gap: 10px;
   padding: clamp(6px, 1.15svh, 10px) 0;
   align-items: baseline;
@@ -1669,6 +1683,7 @@ a {
 .classic-page .detail-timeline strong {
   font-size: 0.92rem;
   line-height: 1.35;
+  white-space: nowrap;
 }
 
 .countdown {
@@ -4429,7 +4444,7 @@ a {
 
   .classic-page .invitation-details div,
   .classic-page .invitation-details section {
-    grid-template-columns: 86px minmax(0, 1fr);
+    grid-template-columns: 70px minmax(0, 1fr);
     gap: 8px;
   }
 

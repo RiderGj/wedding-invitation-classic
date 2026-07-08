@@ -3,6 +3,7 @@ const fs = require("node:fs");
 
 const html = fs.readFileSync("classic.html", "utf8");
 const js = fs.readFileSync("invite.js", "utf8");
+const css = fs.readFileSync("styles.css", "utf8");
 
 const includes = (value) => {
   assert.ok(html.includes(value), `Expected classic.html to include: ${value}`);
@@ -37,6 +38,7 @@ includes("data-journey-start");
 includes("journey-button");
 
 includes('id="hall-01"');
+includes('data-next="#ticket">接受邀请</button>');
 includes("酷男-display.jpg");
 includes("酷女-display.jpg");
 includes("酷两人-display.jpg");
@@ -57,8 +59,12 @@ assert.ok(!html.includes("<span>囍</span>"), "Expected projector heading xi mar
 assert.ok(!html.includes("data-projector-screen"), "Expected projector to be one large film strip");
 
 includes('class="ticket-card formal-ticket invitation-card"');
+assert.ok(!html.includes('data-next="#ending"'), "Expected no next button on the invitation page");
+assert.match(css, /\.invitation-details (?:div|div,)[\s\S]*?grid-template-columns:\s*76px minmax\(0, 1fr\);/, "Expected a narrower invitation label column");
+assert.match(css, /\.classic-page \.ticket-scene\s*\{[^}]*height:\s*100svh;[^}]*overflow:\s*hidden;/, "Expected the ticket scene to stay within one viewport");
 includes('class="ticket-grid invitation-details invitation-details-refined"');
 includes('class="detail-timeline"');
+assert.match(css, /\.classic-page \.detail-timeline strong\s*\{[^}]*white-space:\s*nowrap;/, "Expected timeline event names to stay on one line");
 includes("婚礼倒计时");
 includes('src="./assets/optimized/新郎小时候-avatar.jpg"');
 includes('src="./assets/optimized/新娘小时候-avatar.jpg"');
@@ -84,6 +90,8 @@ assert.ok(!html.includes('href="#rsvp"'), "Expected RSVP nav link to be removed"
 assert.ok(!html.includes('id="rsvp"'), "Expected RSVP page to be removed");
 assert.ok(!html.includes('data-rsvp-form'), "Expected RSVP form to be removed");
 includes("See You There");
+assert.ok(!html.includes("journey-end-button"), "Expected the ending page to have no journey-end button");
+assert.match(css, /\.classic-page \.scene-next-button\s*\{[^}]*margin-top:\s*clamp\(/, "Expected page navigation buttons to sit lower on the page");
 includes('class="cover-photo-frame ending-photo-frame photo-filled"');
 includes('src="./assets/optimized/双人结尾-display.jpg"');
 includes('data-lightbox="高建与齐超儒"');
